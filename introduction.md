@@ -1,5 +1,5 @@
 ---
-title: "Using Markdown"
+title: "Application Programming Interface"
 teaching: 10 # teaching time in minutes
 exercises: 2 # exercise time in minutes
 ---
@@ -19,21 +19,33 @@ exercises: 2 # exercise time in minutes
 
 ## Introduction
 
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.html) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
+HTML websites are the widespread means of sharing information on the internet.
+It comes at no surprise then that scraping websites is a common practice to 
+obtain information from the web in an automated fashion.
 
-What you need to know is that there are three sections required for a valid
-Carpentries lesson:
+However, it would be much easier if a computer program could instead communicate with
+a data provider directly, requesting exactly the information that is needed, for
+example for research purposes. This is where APIs, Application Programming Interfaces,
+come into play. 
 
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
+Sadly, many organizations have restricted access to their public APIs drastically 
+over the years. However, the open-source community remains strong and there are
+plenty good examples of public open APIs such as the scholarly database 
+[OpenAlex](https://openalex.org/).
+
+Their API can be reached at https://api.openalex.org/
+
+Once you open this link in your browser, you won't see much. That's because
+we haven't actually specified any data we would like to retrieve. Luckily, on that
+page, you'll find a link to the API documentation, a very crucial source of information
+when communiting with an API. 
+
+Reading through it, you will find suitable endpoints, such as /works:
+
+```
+https://api.openalex.org/works
+```
+
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
