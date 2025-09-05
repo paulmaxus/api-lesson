@@ -16,6 +16,18 @@
     <loc>https://carpentries.github.io/workbench-template-md/aio.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/workbench-template-md/api-get-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/workbench-template-md/api-introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/workbench-template-md/api-litellm.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/workbench-template-md/examples-exercises.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/workbench-template-md/images.html</loc>
   </url>
   <url>
@@ -35,6 +47,18 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/workbench-template-md/instructor/aio.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/workbench-template-md/instructor/api-get-data.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/workbench-template-md/instructor/api-introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/workbench-template-md/instructor/api-litellm.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/workbench-template-md/instructor/examples-exercises.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/workbench-template-md/instructor/images.html</loc>
