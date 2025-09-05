@@ -6,14 +6,16 @@ exercises: 2 # exercise time in minutes
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using Markdown and `{sandpaper}`?
+- What is an API?
+- What is a 401 status code?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with The Carpentries Workbench
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Understand what an API is and how it works
+- Understand what HTTP requests are
+- Being able to install HTTP libraries for Python or R
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
