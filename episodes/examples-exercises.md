@@ -6,7 +6,7 @@ exercises: 2 # exercise time in minutes
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What can I do with this knowledge?
+- How can I apply this knowledge?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -15,3 +15,31 @@ exercises: 2 # exercise time in minutes
 - Explore, experiment, showcase
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+We've covered the basics of what an API is, how to interact with it and two
+specific API specifications. It is now time to put this knowledge into practice.
+Below you'll find (1) some general ideas for what to use LiteLLM for. (2) we provide
+language-specific approaches and techniques such as using PandasAI to apply
+inference on the dataset directly, or specific endpoints to explore, such as
+`embeddings`.
+
+::::::::::::::::::::::::::::::::::::: discussion
+
+In pairs or groups of 3, use the available data to come up with a generative
+AI research application. See below for examples. Possible outcomes are graphs,
+summaries, or small pieces of software (advanced). Ideally, you can share these
+outcomes with the other workshop participants at the end of the exercise.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Python
+
+[PandasAI](https://docs.pandas-ai.com/v3/getting-started) can be used to quickly
+run inference on your pandas dataframes. You can follow the instructions on their
+website.
+
+For research purposes, it is usually desirable to have more control over parameters.
+Using the `requests` library, you can specify HTTP requests headers and parameters
+
+
+## R
