@@ -42,10 +42,15 @@ asdf
 
 ### Python
 
-asdf
+There is also a Python library that simplifies using the OpenAlex API:
+[pyalex](https://github.com/J535D165/pyalex). The library is well-documented
+and its usage won't be covered in this workshop.
 
 ### R
 
-asdf
+
+There is also an R library that simplifies using the OpenAlex API:
+[openalexR](https://github.com/ropensci/openalexR). The library is well-documented
+and its usage won't be covered in this workshop.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
