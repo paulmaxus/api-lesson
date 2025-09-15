@@ -309,7 +309,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Getting data</h1>
-        <p>Last updated on 2025-09-11 |
+        <p>Last updated on 2025-09-15 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-get-data.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -379,7 +379,21 @@ language.</p>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="method-2-get-data-via-api">Method 2: get data via API<a class="anchor" aria-label="anchor" href="#method-2-get-data-via-api"></a></h2>
-<hr class="half-width"><div class="tabs">
+<hr class="half-width"><p>For this part, we will use HTTP libraries for either Python or R. We
+will use the most commonly used libraries for this workshop, but if
+you’re already familiar with any other, feel free to use those.</p>
+<div class="section level3">
+<h3 id="get-vs--post-requests">GET vs. POST requests<a class="anchor" aria-label="anchor" href="#get-vs--post-requests"></a></h3>
+<p>Before we start making requests, you should be aware of the two most
+relevant <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods" class="external-link">HTTP
+request types</a> for our purposes, GET and POST.</p>
+<p>In simple words, GET requests retrieve data from the server, without
+sending any content, while POST requests send data and retrieve data in
+response.</p>
+<p>When interacting with a language model, we are most likely going to
+send input data (text) to the server, which means we will be making POST
+requests. To retrieve data from OpenAlex, we will be using GET.</p>
+<div class="tabs">
 <nav><div id="nav-tab-2" class="nav nav-tabs" role="tablist">
 <button class="nav-link active" id="nav-tab-2-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-2-Python" type="button" role="tab" aria-controls="nav-tabpanel-2-Python" aria-selected="true">
   <h3 class="tab-header" id="nav-tab-heading-2-Python">
@@ -394,6 +408,30 @@ language.</p>
 </div>
 </nav><div id="nav-tabContent-2" class="tab-content">
 <div id="nav-tabpanel-2-Python" class="tab-pane show active" aria-labelledby="nav-tab-2-Python" role="tabpanel">
+<p>First, we need to install the <code>requests</code> library:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre>
+</div>
+<p>Now, we can import both requests and another built-in library to
+parse json data.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> json</span></code></pre>
+</div>
+<p>Retrieving the data is as simple as calling the get() method using
+our URL from before:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>data <span class="op">=</span> response.json()</span></code></pre>
+</div>
 <p>There is also a Python library that simplifies using the OpenAlex
 API: <a href="https://github.com/J535D165/pyalex" class="external-link">pyalex</a>. The
 library is well-documented and its usage won’t be covered in this
@@ -409,6 +447,7 @@ is well-documented and its usage won’t be covered in this workshop.</p>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/api-introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
@@ -466,9 +505,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/api-get-data.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/api-get-data.html",
-  "dateCreated": "2025-09-11",
-  "dateModified": "2025-09-11",
-  "datePublished": "2025-09-11"
+  "dateCreated": "2025-09-15",
+  "dateModified": "2025-09-15",
+  "datePublished": "2025-09-15"
 }
 
   </script><script>
