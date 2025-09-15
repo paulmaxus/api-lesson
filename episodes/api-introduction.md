@@ -55,7 +55,14 @@ won't cover the specifics of the format here, but a quick web search can give
 you some [answers](https://www.w3schools.com/whatis/whatis_json.asp).
 
 ```json
-{"id":"https://openalex.org/W1775749144","doi":"https://doi.org/10.1016/s0021-9258(19)52451-6","title":"PROTEIN MEASUREMENT WITH THE FOLIN PHENOL REAGENT","display_name":"PROTEIN MEASUREMENT WITH THE FOLIN PHENOL REAGENT","publication_year":1951,"publication_date":"1951-11-01"}
+{
+  "id":"https://openalex.org/W1775749144",
+  "doi":"https://doi.org/10.1016/s0021-9258(19)52451-6",
+  "title":"PROTEIN MEASUREMENT WITH THE FOLIN PHENOL REAGENT",
+  "display_name":"PROTEIN MEASUREMENT WITH THE FOLIN PHENOL REAGENT",
+  "publication_year":1951,
+  "publication_date":"1951-11-01"
+}
 ```
 
 When looking at the meta.count field, you'll notice that the total number of publications
