@@ -245,7 +245,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="examples-exercises.html">4. Inference examples and exercises</a>
+        <a href="examples-exercises.html">4. Examples and exercises</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -309,7 +309,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Getting data</h1>
-        <p>Last updated on 2025-09-15 |
+        <p>Last updated on 2025-09-22 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-get-data.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -370,11 +370,44 @@ language.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
-<p>asdf</p>
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
+<p><strong>Read csv data</strong></p>
+<p>There are many ways to read tabular data in Python. We’ll be using
+<code>pandas</code>. If you’re not familiar with the library, you can
+follow this <a href="https://swcarpentry.github.io/python-novice-gapminder/07-reading-tabular.html" class="external-link">Carpentries
+episode</a>.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
-<p>asdf</p>
+<p>Let’s read the dataset:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"publications2024.csv"</span>)</span></code></pre>
+</div>
+<p><strong>Read json data</strong></p>
+<p>Inverted abstracts are stored in the JSON format which we already
+encountered in the previous episode. In Python, you can read and write
+JSON using the <code>json</code> library.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> json</span></code></pre>
+</div>
+<p>We can use the <code>with</code> statement to open and read the file,
+then use <code>json</code> to load the JSON as a Python object, a
+dictionary.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"abstracts_inverted.json"</span>, <span class="st">"r"</span>) <span class="im">as</span> f:</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    abstracts_inverted <span class="op">=</span> json.loads(f.read())</span></code></pre>
+</div>
+</div>
+<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
+<p>TODO</p>
 </div>
 </div>
 </div>
@@ -407,37 +440,37 @@ requests. To retrieve data from OpenAlex, we will be using GET.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-2" class="tab-content">
-<div id="nav-tabpanel-2-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-2-Python">
+<div id="nav-tabpanel-2-Python" class="tab-pane show active" aria-labelledby="nav-tab-2-Python" role="tabpanel">
 <p>First, we need to install the <code>requests</code> library:</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre>
 </div>
 <p>Now, we can import both requests and another built-in library to
 parse json data.</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> json</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="im">import</span> json</span></code></pre>
 </div>
 <p>Retrieving the data is as simple as calling the get() method using
 our URL from before:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>data <span class="op">=</span> response.json()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>data <span class="op">=</span> response.json()</span></code></pre>
 </div>
 <p>There is also a Python library that simplifies using the OpenAlex
 API: <a href="https://github.com/J535D165/pyalex" class="external-link">pyalex</a>. The
 library is well-documented and its usage won’t be covered in this
 workshop.</p>
 </div>
-<div id="nav-tabpanel-2-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-2-R">
+<div id="nav-tabpanel-2-R" class="tab-pane" aria-labelledby="nav-tab-2-R" role="tabpanel">
 <p>There is also an R library that simplifies using the OpenAlex API: <a href="https://github.com/ropensci/openalexR" class="external-link">openalexR</a>. The library
 is well-documented and its usage won’t be covered in this workshop.</p>
 </div>
@@ -505,9 +538,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/api-get-data.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/api-get-data.html",
-  "dateCreated": "2025-09-15",
-  "dateModified": "2025-09-15",
-  "datePublished": "2025-09-16"
+  "dateCreated": "2025-09-22",
+  "dateModified": "2025-09-22",
+  "datePublished": "2025-09-22"
 }
 
   </script><script>
