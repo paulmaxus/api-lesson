@@ -28,11 +28,43 @@ You do this part on your own. Follow the instructions for your language.
 
 ### Python
 
-asdf
+**Read csv data**
+
+There are many ways to read tabular data in Python. We'll be using `pandas`.
+If you're not familiar with the library, you can follow this 
+[Carpentries episode](https://swcarpentry.github.io/python-novice-gapminder/07-reading-tabular.html).
+
+```python
+import pandas as pd
+```
+
+Let's read the dataset:
+
+```python
+data = pd.read_csv("publications2024.csv")
+```
+
+**Read json data**
+
+Inverted abstracts are stored in the JSON format which we already encountered
+in the previous episode. In Python, you can read and write JSON using the `json`
+library.
+
+```python
+import json
+```
+
+We can use the `with` statement to open and read the file, then use `json` to 
+load the JSON as a Python object, a dictionary.
+
+```python
+with open("abstracts_inverted.json", "r") as f:
+    abstracts_inverted = json.loads(f.read())
+```
 
 ### R
 
-asdf
+TODO
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

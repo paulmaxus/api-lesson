@@ -1,5 +1,5 @@
 ---
-title: "Inference examples and exercises"
+title: "Examples and exercises"
 teaching: 10 # teaching time in minutes
 exercises: 2 # exercise time in minutes
 ---
@@ -32,14 +32,29 @@ outcomes with the other workshop participants at the end of the exercise.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Python
+::::::::::::::::::::::::::::::::::::: group-tab
+
+### Python
+
+**Example 1: SDG classification using titles**
+
+We read a subset of publications and abstracts, and use structured outputs
+to retrieve labels for publication titles and abstracts. You can find the code
+[here](https://github.com/paulmaxus/litellm-workflow/blob/main/sdg.ipynb).
+
+**Example 2: Embeddings**
+
+TODO
+
+**More**
 
 [PandasAI](https://docs.pandas-ai.com/v3/getting-started) can be used to quickly
 run inference on your pandas dataframes. You can follow the instructions on their
-website.
+website. For research purposes, it is usually desirable to have more control over parameters,
+for instance by using a library such as `requests`.
 
-For research purposes, it is usually desirable to have more control over parameters.
-Using the `requests` library, you can specify HTTP requests headers and parameters
+### R
 
+TODO
 
-## R
+::::::::::::::::::::::::::::::::::::::::::::::::
