@@ -158,7 +158,73 @@ since we are sending data to the server.
 
 ### R
 
+```r
+library(httr2)
+```
 
+Let's now set the headers:
+
+```python
+api_key <- ""  
+# make sure to never expose this key to the public
+
+headers <- list(
+  "Content-Type" = "application/json",
+  "Accept" = "application/json",
+  "Authorization" = paste("Bearer", api_key)
+)
+```
+
+We can now repeat the request to `/models`, this time using R:
+
+```r
+url <- "https://ai-research-proxy.azurewebsites.net/models"
+
+response <- request(url) %>%
+  req_headers(!!!headers) %>%
+  req_perform()
+
+content <- resp_body_json(response)
+
+for (model in content$data) {
+  print(model$id)
+}
+```
+
+We can now use one of these models to process our text input / prompt:
+
+```r
+# Insert a prompt
+prompt = ""
+
+url <- "https://ai-research-proxy.azurewebsites.net/chat/completions"
+
+response <- request(url) %>%
+  req_headers(!!!headers) %>%
+  req_body_json(
+    list(
+      model = "gpt-4o-mini",
+      messages = list(
+        list(role = "user", content = prompt)
+      )
+    )
+  ) %>%
+  req_perform()
+```
+
+Notice that we are now using `req_body_json()` in order to send data to the server.
+This is a POST request.
+
+Let's check that the status code is 200 and print the answer:
+
+```r
+if (response$status_code == 200) {
+  content <- resp_body_json(response)
+  print(content$choices[[1]]$message$content)
+} else {
+  cat("Error:", response$status_code, "\n")
+}
+```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -36,13 +36,13 @@ outcomes with the other workshop participants at the end of the exercise.
 
 ### Python
 
-**Example 1: SDG classification using titles**
+**Example 1: SDG classification**
 
 We read a subset of publications and abstracts, and use structured outputs
 to retrieve labels for publication titles and abstracts. You can find the code
-[here](https://github.com/paulmaxus/litellm-workflow/blob/main/sdg.ipynb).
+[here](https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb).
 
-**Example 2: Embeddings**
+**Example 2: Embeddings OR Web Search**
 
 TODO
 
@@ -55,6 +55,13 @@ for instance by using a library such as `requests`.
 
 ### R
 
-TODO
+We read a subset of publications, and use structured outputs
+to retrieve labels for publication titles. You can find the code
+[here](https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R).
+
+**More**
+
+Besides the more generic httr2 library, there are AI-specific libraries such as
+[Ellmer](https://ellmer.tidyverse.org/) to interact with the API (and others).
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
