@@ -310,7 +310,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>LiteLLM API</h1>
-        <p>Last updated on 2025-09-15 |
+        <p>Last updated on 2025-10-01 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-litellm.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -446,7 +446,7 @@ us.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
 <p>We first need to import the requests and json module.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -496,6 +496,82 @@ prompt:</p>
 </div>
 <p>Notice that we are now using <code>requests.post()</code> instead of
 <code>requests.get()</code> since we are sending data to the server.</p>
+</div>
+<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">httr2</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s now set the headers:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>api_key <span class="op">&lt;-</span> <span class="st">""</span>  </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># make sure to never expose this key to the public</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>headers <span class="op">&lt;-</span> <span class="bu">list</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="st">"Content-Type"</span> <span class="op">=</span> <span class="st">"application/json"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="st">"Accept"</span> <span class="op">=</span> <span class="st">"application/json"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="st">"Authorization"</span> <span class="op">=</span> paste(<span class="st">"Bearer"</span>, api_key)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>)</span></code></pre>
+</div>
+<p>We can now repeat the request to <code>/models</code>, this time
+using R:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/models"</span></span>
+<span></span>
+<span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu">request</span><span class="op">(</span><span class="va">url</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_headers</span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">headers</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_perform</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">content</span> <span class="op">&lt;-</span> <span class="fu">resp_body_json</span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">model</span> <span class="kw">in</span> <span class="va">content</span><span class="op">$</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">print</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
+</div>
+<p>We can now use one of these models to process our text input /
+prompt:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Insert a prompt</span></span>
+<span><span class="va">prompt</span> <span class="op">=</span> <span class="st">""</span></span>
+<span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/chat/completions"</span></span>
+<span></span>
+<span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu">request</span><span class="op">(</span><span class="va">url</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_headers</span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">headers</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_body_json</span><span class="op">(</span></span>
+<span>    <span class="fu">list</span><span class="op">(</span></span>
+<span>      model <span class="op">=</span> <span class="st">"gpt-4o-mini"</span>,</span>
+<span>      messages <span class="op">=</span> <span class="fu">list</span><span class="op">(</span></span>
+<span>        <span class="fu">list</span><span class="op">(</span>role <span class="op">=</span> <span class="st">"user"</span>, content <span class="op">=</span> <span class="va">prompt</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_perform</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Notice that we are now using <code>req_body_json()</code> in order to
+send data to the server. This is a POST request.</p>
+<p>Let’s check that the status code is 200 and print the answer:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">status_code</span> <span class="op">==</span> <span class="fl">200</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">content</span> <span class="op">&lt;-</span> <span class="fu">resp_body_json</span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
+<span>  <span class="fu">print</span><span class="op">(</span><span class="va">content</span><span class="op">$</span><span class="va">choices</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">content</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu">cat</span><span class="op">(</span><span class="st">"Error:"</span>, <span class="va">response</span><span class="op">$</span><span class="va">status_code</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -560,9 +636,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/api-litellm.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/api-litellm.html",
-  "dateCreated": "2025-09-22",
-  "dateModified": "2025-09-15",
-  "datePublished": "2025-09-30"
+  "dateCreated": "2025-10-01",
+  "dateModified": "2025-10-01",
+  "datePublished": "2025-10-01"
 }
 
   </script><script>

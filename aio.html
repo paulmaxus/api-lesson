@@ -503,7 +503,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  --></section></section><section id="aio-api-get-data"><p>Content from <a href="api-get-data.html">Getting data</a></p>
 <hr>
-<p>Last updated on 2025-09-22 |
+<p>Last updated on 2025-10-01 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-get-data.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -516,6 +516,10 @@ any links that you are not going to use.
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
+<ul>
+<li>How can I read the dataset into Python or R</li>
+<li>How can I access data via an API using Python or R</li>
+</ul>
 </div>
 </div>
 </div>
@@ -597,7 +601,55 @@ dictionary.</p>
 </div>
 </div>
 <div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
-<p>TODO</p>
+<p><strong>Read csv data</strong></p>
+<p>There are many ways to read tabular data in R, for instance the
+built-in <code>read.csv()</code>, which you might have encountered in
+this <a href="https://swcarpentry.github.io/r-novice-inflammation/11-supp-read-write-csv.html" class="external-link">Carpentries
+episode</a>.</p>
+<p>Here, we will use the <a href="https://readr.tidyverse.org/" class="external-link">readr</a> package from the
+<em>tidyverse</em>. First you need to install it:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"readr"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Then load it:</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s read the dataset now:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"publications2024.csv"</span><span class="op">)</span></span></code></pre>
+</div>
+<p><strong>Read json data</strong></p>
+<p>Inverted abstracts are stored in the JSON format which we already
+encountered in the previous episode. In R, you can read and write JSON
+using the <a href="https://github.com/jeroen/jsonlite" class="external-link">jsonlite</a>
+library.</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"jsonlite"</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">jsonlite</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s read the inverted abstracts:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">abstracts_inverted</span> <span class="op">&lt;-</span> <span class="fu">read_json</span><span class="op">(</span><span class="st">"abstracts_inverted.json"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>To obtain the original abstracts, you need to process the data
+further. More examples on how to work with JSON data in R, can be found
+<a href="https://datacarpentry.github.io/r-socialsci/07-json" class="external-link">here</a>.</p>
 </div>
 </div>
 </div>
@@ -635,28 +687,28 @@ requests. To retrieve data from OpenAlex, we will be using GET.</p>
 </nav><div id="nav-tabContent-2" class="tab-content">
 <div id="nav-tabpanel-2-Python" class="tab-pane show active" aria-labelledby="nav-tab-2-Python" role="tabpanel">
 <p>First, we need to install the <code>requests</code> library:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre>
 </div>
 <p>Now, we can import both requests and another built-in library to
 parse json data.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="im">import</span> json</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="im">import</span> json</span></code></pre>
 </div>
 <p>Retrieving the data is as simple as calling the get() method using
 our URL from before:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>data <span class="op">=</span> response.json()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>data <span class="op">=</span> response.json()</span></code></pre>
 </div>
 <p>There is also a Python library that simplifies using the OpenAlex
 API: <a href="https://github.com/J535D165/pyalex" class="external-link">pyalex</a>. The
@@ -664,6 +716,31 @@ library is well-documented and its usage won’t be covered in this
 workshop.</p>
 </div>
 <div id="nav-tabpanel-2-R" class="tab-pane" aria-labelledby="nav-tab-2-R" role="tabpanel">
+<p>First, we need to install and load the <a href="https://httr2.r-lib.org/articles/httr2.html" class="external-link">httr2</a>
+package:</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="st">"httr2"</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">httr2</span><span class="op">)</span></span></code></pre>
+</div>
+<p><code>httr2</code> uses objects and you can use the pipe to build a
+request step-by-step. We retrieve the data using our URL from
+before:</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prepare the request</span></span>
+<span><span class="va">req</span> <span class="op">&lt;-</span> <span class="fu">request</span><span class="op">(</span><span class="st">"https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Submit the request</span></span>
+<span><span class="va">resp</span> <span class="op">&lt;-</span> <span class="va">req</span> <span class="op">%&gt;%</span> <span class="fu">req_perform</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Retrieve data from the response</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">resp</span> <span class="op">%&gt;%</span> <span class="fu">resp_body_json</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">str</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
 <p>There is also an R library that simplifies using the OpenAlex API: <a href="https://github.com/ropensci/openalexR" class="external-link">openalexR</a>. The library
 is well-documented and its usage won’t be covered in this workshop.</p>
 </div>
@@ -676,7 +753,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-api-litellm"><p>Content from <a href="api-litellm.html">LiteLLM API</a></p>
 <hr>
-<p>Last updated on 2025-09-15 |
+<p>Last updated on 2025-10-01 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-litellm.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -814,7 +891,7 @@ us.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
 <p>We first need to import the requests and json module.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -865,6 +942,82 @@ prompt:</p>
 <p>Notice that we are now using <code>requests.post()</code> instead of
 <code>requests.get()</code> since we are sending data to the server.</p>
 </div>
+<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">httr2</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s now set the headers:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>api_key <span class="op">&lt;-</span> <span class="st">""</span>  </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># make sure to never expose this key to the public</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>headers <span class="op">&lt;-</span> <span class="bu">list</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="st">"Content-Type"</span> <span class="op">=</span> <span class="st">"application/json"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="st">"Accept"</span> <span class="op">=</span> <span class="st">"application/json"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="st">"Authorization"</span> <span class="op">=</span> paste(<span class="st">"Bearer"</span>, api_key)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>)</span></code></pre>
+</div>
+<p>We can now repeat the request to <code>/models</code>, this time
+using R:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/models"</span></span>
+<span></span>
+<span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu">request</span><span class="op">(</span><span class="va">url</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_headers</span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">headers</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_perform</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">content</span> <span class="op">&lt;-</span> <span class="fu">resp_body_json</span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">model</span> <span class="kw">in</span> <span class="va">content</span><span class="op">$</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">print</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
+</div>
+<p>We can now use one of these models to process our text input /
+prompt:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Insert a prompt</span></span>
+<span><span class="va">prompt</span> <span class="op">=</span> <span class="st">""</span></span>
+<span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/chat/completions"</span></span>
+<span></span>
+<span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu">request</span><span class="op">(</span><span class="va">url</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_headers</span><span class="op">(</span><span class="op">!</span><span class="op">!</span><span class="op">!</span><span class="va">headers</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_body_json</span><span class="op">(</span></span>
+<span>    <span class="fu">list</span><span class="op">(</span></span>
+<span>      model <span class="op">=</span> <span class="st">"gpt-4o-mini"</span>,</span>
+<span>      messages <span class="op">=</span> <span class="fu">list</span><span class="op">(</span></span>
+<span>        <span class="fu">list</span><span class="op">(</span>role <span class="op">=</span> <span class="st">"user"</span>, content <span class="op">=</span> <span class="va">prompt</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">req_perform</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Notice that we are now using <code>req_body_json()</code> in order to
+send data to the server. This is a POST request.</p>
+<p>Let’s check that the status code is 200 and print the answer:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">status_code</span> <span class="op">==</span> <span class="fl">200</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">content</span> <span class="op">&lt;-</span> <span class="fu">resp_body_json</span><span class="op">(</span><span class="va">response</span><span class="op">)</span></span>
+<span>  <span class="fu">print</span><span class="op">(</span><span class="va">content</span><span class="op">$</span><span class="va">choices</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">content</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu">cat</span><span class="op">(</span><span class="st">"Error:"</span>, <span class="va">response</span><span class="op">$</span><span class="va">status_code</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
+</div>
+</div>
 </div>
 </div>
 <!--
@@ -873,7 +1026,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-examples-exercises"><p>Content from <a href="examples-exercises.html">Examples and exercises</a></p>
 <hr>
-<p>Last updated on 2025-09-22 |
+<p>Last updated on 2025-10-01 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/examples-exercises.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -941,11 +1094,11 @@ participants at the end of the exercise.</p>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
 <div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
-<p><strong>Example 1: SDG classification using titles</strong></p>
+<p><strong>Example 1: SDG classification</strong></p>
 <p>We read a subset of publications and abstracts, and use structured
 outputs to retrieve labels for publication titles and abstracts. You can
-find the code <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/sdg.ipynb" class="external-link">here</a>.</p>
-<p><strong>Example 2: Embeddings</strong></p>
+find the code <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb" class="external-link">here</a>.</p>
+<p><strong>Example 2: Embeddings OR Web Search</strong></p>
 <p>TODO</p>
 <p><strong>More</strong></p>
 <p><a href="https://docs.pandas-ai.com/v3/getting-started" class="external-link">PandasAI</a>
@@ -955,7 +1108,12 @@ usually desirable to have more control over parameters, for instance by
 using a library such as <code>requests</code>.</p>
 </div>
 <div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
-<p>TODO</p>
+<p>We read a subset of publications, and use structured outputs to
+retrieve labels for publication titles. You can find the code <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R" class="external-link">here</a>.</p>
+<p><strong>More</strong></p>
+<p>Besides the more generic httr2 library, there are AI-specific
+libraries such as <a href="https://ellmer.tidyverse.org/" class="external-link">Ellmer</a> to
+interact with the API (and others).</p>
 </div>
 </div>
 </div></section>
@@ -1005,9 +1163,9 @@ using a library such as <code>requests</code>.</p>
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/aio.html",
-  "dateCreated": "2025-09-22",
-  "dateModified": "2025-09-30",
-  "datePublished": "2025-09-30"
+  "dateCreated": "2025-10-01",
+  "dateModified": "2025-10-01",
+  "datePublished": "2025-10-01"
 }
 
   </script><script>
