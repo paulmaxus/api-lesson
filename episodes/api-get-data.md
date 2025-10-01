@@ -6,6 +6,8 @@ exercises: 2 # exercise time in minutes
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
+- How can I read the dataset into Python or R
+- How can I access data via an API using Python or R
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -64,7 +66,52 @@ with open("abstracts_inverted.json", "r") as f:
 
 ### R
 
-TODO
+**Read csv data**
+
+There are many ways to read tabular data in R, for instance the built-in `read.csv()`,
+which you might have encountered in this 
+[Carpentries episode](https://swcarpentry.github.io/r-novice-inflammation/11-supp-read-write-csv.html).
+
+Here, we will use the [readr](https://readr.tidyverse.org/) 
+package from the *tidyverse*. First you need to install it:
+
+```r
+install.packages("readr")
+```
+
+Then load it:
+
+```r
+library(tidyverse)
+```
+
+Let's read the dataset now:
+
+```r
+data <- read_csv("publications2024.csv")
+```
+
+**Read json data**
+
+Inverted abstracts are stored in the JSON format which we already encountered
+in the previous episode. In R, you can read and write JSON using the 
+[jsonlite](https://github.com/jeroen/jsonlite) library.
+
+```r
+install.packages("jsonlite")
+library(jsonlite)
+```
+
+Let's read the inverted abstracts:
+
+```r
+abstracts_inverted <- read_json("abstracts_inverted.json")
+```
+
+To obtain the original abstracts, you need to process the data further.
+More examples on how to work with JSON data in R, can be found 
+[here](https://datacarpentry.github.io/r-socialsci/07-json).
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -123,9 +170,32 @@ and its usage won't be covered in this workshop.
 
 ### R
 
+First, we need to install and load the [httr2](https://httr2.r-lib.org/articles/httr2.html) 
+package:
+
+```r
+install.packages("httr2")
+library(httr2)
+```
+
+`httr2` uses objects and you can use the pipe to build a request step-by-step.
+We retrieve the data using our URL from before:
+
+```r
+# Prepare the request
+req <- request("https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024")
+
+# Submit the request
+resp <- req %>% req_perform()
+
+# Retrieve data from the response
+data <- resp %>% resp_body_json() %>% str()
+```
 
 There is also an R library that simplifies using the OpenAlex API:
 [openalexR](https://github.com/ropensci/openalexR). The library is well-documented
 and its usage won't be covered in this workshop.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+
