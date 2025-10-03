@@ -301,7 +301,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Examples and exercises</h1>
-        <p>Last updated on 2025-10-01 |
+        <p>Last updated on 2025-10-03 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/examples-exercises.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -335,12 +335,10 @@
 </div>
 </div>
 <p>We’ve covered the basics of what an API is, how to interact with it
-and two specific API specifications. It is now time to put this
-knowledge into practice. Below you’ll find (1) some general ideas for
-what to use LiteLLM for. (2) we provide language-specific approaches and
-techniques such as using PandasAI to apply inference on the dataset
-directly, or specific endpoints to explore, such as
-<code>embeddings</code>.</p>
+and looked at two API specifications. It is now time to put this
+knowledge into practice. Below you’ll find links to language-specific
+scripts with GenAI use cases. We also provide additional links for
+further reading.</p>
 <div id="discussion1" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -349,13 +347,23 @@ directly, or specific endpoints to explore, such as
 <div class="callout-inner">
 <div class="callout-content">
 <p>In pairs or groups of 3, use the available data to come up with a
-generative AI research application. See below for examples. Possible
-outcomes are graphs, summaries, or small pieces of software (advanced).
-Ideally, you can share these outcomes with the other workshop
-participants at the end of the exercise.</p>
+generative AI (research) application - possible outcomes can be tables,
+graphs, summaries, or small pieces of software (advanced). Ideally, you
+can share these outcomes with the other workshop participants at the end
+of the exercise.</p>
 </div>
 </div>
 </div>
+<p><strong>Example 1: SDG classification</strong></p>
+<p>We read a subset of publications and abstracts, and use structured
+outputs to retrieve labels for publication titles and abstracts.</p>
+<p><strong>Example 2: RAGs</strong></p>
+<p><a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" class="external-link">Retrieval-augmented
+generation (RAG)</a> can be a powerful tool to generate more reliable
+output. By providing a set of domain-specific documents, the LLM is able
+to query those documents before generating its answer to the user.</p>
+<p>To implement RAG, you will need to use an embeddings model next to
+the LLM, e.g. <code>text-embedding-ada-002</code>.</p>
 <div class="tabs">
 <nav><div id="nav-tab-1" class="nav nav-tabs" role="tablist">
 <button class="nav-link active" id="nav-tab-1-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-1-Python" type="button" role="tab" aria-controls="nav-tabpanel-1-Python" aria-selected="true">
@@ -370,24 +378,27 @@ participants at the end of the exercise.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
-<p><strong>Example 1: SDG classification</strong></p>
-<p>We read a subset of publications and abstracts, and use structured
-outputs to retrieve labels for publication titles and abstracts. You can
-find the code <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb" class="external-link">here</a>.</p>
-<p><strong>Example 2: Embeddings OR Web Search</strong></p>
-<p>TODO</p>
-<p><strong>More</strong></p>
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
+<p>SDG classification:</p>
+<ul><li><a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb" class="external-link">code</a></li>
+</ul><p>RAG (LlamaIndex):</p>
+<ul><li><a href="https://developers.llamaindex.ai/python/framework/module_guides/indexing/vector_store_index/#loading-data-into-the-index" class="external-link">vector
+store</a></li>
+<li><a href="https://developers.llamaindex.ai/python/framework/module_guides/deploying/chat_engines/usage_pattern#available-chat-modes" class="external-link">chat
+engine</a></li>
+</ul><p><strong>More</strong></p>
 <p><a href="https://docs.pandas-ai.com/v3/getting-started" class="external-link">PandasAI</a>
 can be used to quickly run inference on your pandas dataframes. You can
 follow the instructions on their website. For research purposes, it is
 usually desirable to have more control over parameters, for instance by
 using a library such as <code>requests</code>.</p>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
-<p>We read a subset of publications, and use structured outputs to
-retrieve labels for publication titles. You can find the code <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R" class="external-link">here</a>.</p>
-<p><strong>More</strong></p>
+<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
+<p>SDG classification:</p>
+<ul><li><a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R" class="external-link">code</a></li>
+</ul><p>RAG:</p>
+<ul><li><a href="https://ragnar.tidyverse.org/" class="external-link">ragnar</a></li>
+</ul><p><strong>More</strong></p>
 <p>Besides the more generic httr2 library, there are AI-specific
 libraries such as <a href="https://ellmer.tidyverse.org/" class="external-link">Ellmer</a> to
 interact with the API (and others).</p>
@@ -458,9 +469,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/examples-exercises.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/examples-exercises.html",
-  "dateCreated": "2025-10-01",
-  "dateModified": "2025-10-01",
-  "datePublished": "2025-10-01"
+  "dateCreated": "2025-10-03",
+  "dateModified": "2025-10-03",
+  "datePublished": "2025-10-03"
 }
 
   </script><script>
