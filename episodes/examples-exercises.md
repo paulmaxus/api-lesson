@@ -16,35 +16,47 @@ exercises: 2 # exercise time in minutes
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-We've covered the basics of what an API is, how to interact with it and two
-specific API specifications. It is now time to put this knowledge into practice.
-Below you'll find (1) some general ideas for what to use LiteLLM for. (2) we provide
-language-specific approaches and techniques such as using PandasAI to apply
-inference on the dataset directly, or specific endpoints to explore, such as
-`embeddings`.
+We've covered the basics of what an API is, how to interact with it and looked 
+at two API specifications. It is now time to put this knowledge into practice.
+Below you'll find links to language-specific scripts with GenAI use cases. We
+also provide additional links for further reading.
 
 ::::::::::::::::::::::::::::::::::::: discussion
 
 In pairs or groups of 3, use the available data to come up with a generative
-AI research application. See below for examples. Possible outcomes are graphs,
-summaries, or small pieces of software (advanced). Ideally, you can share these
+AI (research) application - possible outcomes can be tables, graphs, summaries, 
+or small pieces of software (advanced). Ideally, you can share these
 outcomes with the other workshop participants at the end of the exercise.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+**Example 1: SDG classification**
+
+We read a subset of publications and abstracts, and use structured outputs
+to retrieve labels for publication titles and abstracts.
+
+**Example 2: RAGs**
+
+[Retrieval-augmented generation (RAG)](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) 
+can be a powerful tool to generate more reliable output. By providing a set of
+domain-specific documents, the LLM is able to query those documents before 
+generating its answer to the user.
+
+To implement RAG, you will need to use an embeddings model next to the LLM, e.g.
+`text-embedding-ada-002`.
 
 ::::::::::::::::::::::::::::::::::::: group-tab
 
 ### Python
 
-**Example 1: SDG classification**
+SDG classification:
 
-We read a subset of publications and abstracts, and use structured outputs
-to retrieve labels for publication titles and abstracts. You can find the code
-[here](https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb).
+- [code](https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb)
 
-**Example 2: Embeddings OR Web Search**
+RAG (LlamaIndex):
 
-TODO
+- [vector store](https://developers.llamaindex.ai/python/framework/module_guides/indexing/vector_store_index/#loading-data-into-the-index)
+- [chat engine](https://developers.llamaindex.ai/python/framework/module_guides/deploying/chat_engines/usage_pattern#available-chat-modes)
 
 **More**
 
@@ -55,9 +67,13 @@ for instance by using a library such as `requests`.
 
 ### R
 
-We read a subset of publications, and use structured outputs
-to retrieve labels for publication titles. You can find the code
-[here](https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R).
+SDG classification:
+
+- [code](https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R)
+
+RAG:
+
+- [ragnar](https://ragnar.tidyverse.org/)
 
 **More**
 
