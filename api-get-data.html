@@ -309,7 +309,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Getting data</h1>
-        <p>Last updated on 2025-10-01 |
+        <p>Last updated on 2025-10-09 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-get-data.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -343,6 +343,11 @@
 </div>
 </div>
 </div>
+<p>Before looking at the LiteLLM API, we want to make sure that we have
+a dataset to work with. We will be using publications data from
+OpenAlex. You can either load a prepared dataset (see Setup
+instructions) or use the API programmatically and obtain the data
+yourself.</p>
 <div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -370,7 +375,7 @@ language.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
 <p><strong>Read csv data</strong></p>
 <p>There are many ways to read tabular data in Python. We’ll be using
 <code>pandas</code>. If you’re not familiar with the library, you can
@@ -406,7 +411,7 @@ dictionary.</p>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    abstracts_inverted <span class="op">=</span> json.loads(f.read())</span></code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
+<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
 <p><strong>Read csv data</strong></p>
 <p>There are many ways to read tabular data in R, for instance the
 built-in <code>read.csv()</code>, which you might have encountered in
@@ -427,7 +432,7 @@ episode</a>.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Let’s read the dataset now:</p>
+<p>Let’s read the dataset:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -436,7 +441,7 @@ episode</a>.</p>
 </div>
 <p><strong>Read json data</strong></p>
 <p>Inverted abstracts are stored in the JSON format which we already
-encountered in the previous episode. In R, you can read and write JSON
+encountered in the previous chapter. In R, you can read and write JSON
 using the <a href="https://github.com/jeroen/jsonlite" class="external-link">jsonlite</a>
 library.</p>
 <div class="codewrapper sourceCode" id="cb8">
@@ -460,20 +465,28 @@ further. More examples on how to work with JSON data in R, can be found
 </div>
 </div>
 </section><section><h2 class="section-heading" id="method-2-get-data-via-api">Method 2: get data via API<a class="anchor" aria-label="anchor" href="#method-2-get-data-via-api"></a></h2>
-<hr class="half-width"><p>For this part, we will use HTTP libraries for either Python or R. We
-will use the most commonly used libraries for this workshop, but if
-you’re already familiar with any other, feel free to use those.</p>
-<div class="section level3">
-<h3 id="get-vs--post-requests">GET vs. POST requests<a class="anchor" aria-label="anchor" href="#get-vs--post-requests"></a></h3>
-<p>Before we start making requests, you should be aware of the two most
-relevant <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods" class="external-link">HTTP
-request types</a> for our purposes, GET and POST.</p>
+<hr class="half-width"><div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>For this part, we will need HTTP libraries for either Python or R. We
+will use the most common libraries, but if you are already familiar with
+another, feel free to use those.</p>
+</div>
+</div>
+</div>
+<p><strong>GET vs. POST requests</strong></p>
+<p>The two most relevant <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods" class="external-link">HTTP
+request types</a> for our purposes are GET and POST.</p>
 <p>In simple words, GET requests retrieve data from the server, without
-sending any content, while POST requests send data and retrieve data in
+sending any data, while POST requests send data and retrieve data in
 response.</p>
 <p>When interacting with a language model, we are most likely going to
-send input data (text) to the server, which means we will be making POST
-requests. To retrieve data from OpenAlex, we will be using GET.</p>
+send input data (prompts) to the server, which means we will be making
+POST requests. To retrieve data from OpenAlex, we will be using GET.</p>
 <div class="tabs">
 <nav><div id="nav-tab-2" class="nav nav-tabs" role="tablist">
 <button class="nav-link active" id="nav-tab-2-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-2-Python" type="button" role="tab" aria-controls="nav-tabpanel-2-Python" aria-selected="true">
@@ -488,15 +501,15 @@ requests. To retrieve data from OpenAlex, we will be using GET.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-2" class="tab-content">
-<div id="nav-tabpanel-2-Python" class="tab-pane show active" aria-labelledby="nav-tab-2-Python" role="tabpanel">
+<div id="nav-tabpanel-2-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-2-Python">
 <p>First, we need to install the <code>requests</code> library:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre>
 </div>
-<p>Now, we can import both requests and another built-in library to
-parse json data.</p>
+<p>Now, we can import both <code>requests</code> and the built-in
+library <code>json</code> to parse json data.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -518,7 +531,7 @@ API: <a href="https://github.com/J535D165/pyalex" class="external-link">pyalex</
 library is well-documented and its usage won’t be covered in this
 workshop.</p>
 </div>
-<div id="nav-tabpanel-2-R" class="tab-pane" aria-labelledby="nav-tab-2-R" role="tabpanel">
+<div id="nav-tabpanel-2-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-2-R">
 <p>First, we need to install and load the <a href="https://httr2.r-lib.org/articles/httr2.html" class="external-link">httr2</a>
 package:</p>
 <div class="codewrapper sourceCode" id="cb13">
@@ -553,7 +566,6 @@ is well-documented and its usage won’t be covered in this workshop.</p>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="api-introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
@@ -611,9 +623,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/api-get-data.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/api-get-data.html",
-  "dateCreated": "2025-10-03",
-  "dateModified": "2025-10-01",
-  "datePublished": "2025-10-07"
+  "dateCreated": "2025-10-09",
+  "dateModified": "2025-10-09",
+  "datePublished": "2025-10-09"
 }
 
   </script><script>

@@ -217,6 +217,7 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
+<li><a href="#exploring-an-api">Exploring an API</a></li>
 <li><a href="#http-status-codes">HTTP status codes</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
@@ -309,7 +310,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>API Introduction</h1>
-        <p>Last updated on 2025-09-15 |
+        <p>Last updated on 2025-10-09 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -341,39 +342,42 @@
 <h3 class="card-title">Objectives</h3>
 <ul><li>Understand what an API is and how it works</li>
 <li>Understand what HTTP requests are</li>
-<li>Being able to install HTTP libraries for Python or R</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
 <section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a></h2>
-<hr class="half-width"><p>HTML websites are the widespread means of sharing information on the
-internet. Unsurprisingly then, scraping websites is a common practice to
-obtain information from the web in an automated way.</p>
-<p>However, it was much easier if a computer program could instead
-communicate with a data provider directly, requesting exactly the
-information that is needed for research purposes. This is what
-Application Programming Interfaces (APIs) accomplish.</p>
-<p>Sadly, many organizations have restricted access to their public APIs
-drastically over the years. However, the open-source community remains
-strong and there are plenty good examples of public open APIs such as
-the scholarly database <a href="https://openalex.org/" class="external-link">OpenAlex</a>.</p>
-<p>Their API can be reached at <a href="https://api.openalex.org/" class="external-link uri">https://api.openalex.org/</a></p>
-<p>Once you open this link in your browser, you won’t see much. That’s
-because we haven’t actually specified any data we would like to
-retrieve. Luckily, on that page, you’ll find a link to the API
-documentation, a very crucial source of information when communiting
-with an API.</p>
-<p>Reading through it, you will find suitable endpoints, such as
-/works:</p>
-<p><code>https://api.openalex.org/works</code></p>
-<p>You can simply paste this link in a browser to see what it contains.
-Alternatively, on the command line you can use <code>curl</code>. In the
-<a href="api-get-data.html">next episode</a>, we will also see how we
-can use Python and R to obtain data from the API.</p>
+<hr class="half-width"><p>HTML websites are a widespread means of sharing information on the
+internet. It is unsurprising then that scraping websites is a common
+practice (in research) to obtain information from the web in an
+automated way.</p>
+<p>However, scraping websites has many downsides; it would be much
+easier if a computer program could instead communicate with a data
+provider directly, requesting exactly the information that is needed for
+the research purpose. This is what Application Programming Interfaces
+(APIs) accomplish.</p>
+<p>Nowadays, many organizations have restricted access to their public
+APIs drastically. The open-source community remains strong, however, and
+there are plenty good examples of public open APIs such as the scholarly
+database <a href="https://openalex.org/" class="external-link">OpenAlex</a>.</p>
+<p>Their API can be reached at:</p>
+<p><a href="https://api.openalex.org/" class="external-link uri">https://api.openalex.org/</a></p>
+</section><section><h2 class="section-heading" id="exploring-an-api">Exploring an API<a class="anchor" aria-label="anchor" href="#exploring-an-api"></a></h2>
+<hr class="half-width"><p>When you open this link in your browser, you won’t see much at first.
+That’s because we haven’t actually specified the data we would like to
+retrieve. Luckily, on that page, you will find a link to the <a href="https://docs.openalex.org/how-to-use-the-api/api-overview" class="external-link">API
+documentation</a>, a very crucial source of information when
+communicating with an API.</p>
+<p>Reading through the documentation, you will find many so called
+<strong>endpoints</strong>, URLs that represent resources such as
+publications:</p>
+<p><a href="https://api.openalex.org/works" class="external-link uri">https://api.openalex.org/works</a></p>
+<p>You can copy-paste this link to a browser. Alternatively, on the
+command line you can use <code>curl</code>. In the <a href="api-get-data.html">next chapter</a>, we will also see how we can
+use Python and R to obtain data from the API.</p>
 <p>Here is a subset of the data displayed when opening the
-<code>works</code> url in a browser. OpenAlex returns data as JSON, a
+<code>works</code> URL in a browser. OpenAlex returns data as JSON, a
 common data format for these types of APIs. We won’t cover the specifics
 of the format here, but a quick web search can give you some <a href="https://www.w3schools.com/whatis/whatis_json.asp" class="external-link">answers</a>.</p>
 <div class="codewrapper sourceCode" id="cb1">
@@ -388,31 +392,32 @@ of the format here, but a quick web search can give you some <a href="https://ww
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="dt">"publication_date"</span><span class="fu">:</span><span class="st">"1951-11-01"</span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
 </div>
-<p>When looking at the meta.count field, you’ll notice that the total
-number of publications available via <code>works</code> is 270,765,445
-which is quite large. For the purpose of this workshop, we would like to
-reduce this number by applying filters. This is what most APIs are
-designed to do and it can be very useful if you only wish to obtain the
-data that is really needed.</p>
-<p>Let’s say we would like to only look at publications from 2024
-written by at least one author from the University of Amsterdam. To
-filter on institutions, OpenAlex uses the so called <a href="https://ror.org/" class="external-link">ROR</a> identifier.</p>
+<p>When looking at the <em>meta.count</em> field, you’ll notice that the
+total number of publications available via <code>works</code> is
+270,765,445 which is quite large. For the purpose of this workshop, we
+would like to reduce this number by applying <strong>filters</strong>.
+This is what most APIs are designed to do and it can be very useful if
+you only wish to obtain specific subsets of data.</p>
+<p>Let’s say we are only interested in publications from 2024 written by
+at least one author from the <em>University of Amsterdam</em>. To filter
+by institutions, OpenAlex uses the so called <a href="https://ror.org/" class="external-link">ROR</a> identifier.</p>
 <p>We can modify the URL like this:</p>
 <pre><code>https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024</code></pre>
 <p>Take a look at the API documentation to explore other <a href="https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists" class="external-link">filter
 parameters</a>.</p>
 </section><section><h2 class="section-heading" id="http-status-codes">HTTP status codes<a class="anchor" aria-label="anchor" href="#http-status-codes"></a></h2>
-<hr class="half-width"><p>We’ve probably all encountered the famous <code>404</code> error
-message when being redirected to a website that doesn’t exist. APIs
-usually provide more informative error messages.</p>
+<hr class="half-width"><p>We’ve probably all encountered the famous <em>404</em> error message
+when being redirected to a website that does not exist. APIs usually
+provide more informative error messages.</p>
 <p>For example, when inserting a typo into one of our parameters, let’s
-say replacing <code>publication_year</code> with
-<code>pppublication_year</code>, you’ll see a message like this:</p>
+say replacing <em>publication_year</em> with
+<em>pppublication_year</em>, we will get a message like this:</p>
 <p><code>Invalid query parameters error</code></p>
-<p>This error tells you what to look for.</p>
+<p>This error tells us what to look for.</p>
 <p>When making HTTP requests from Python or R, we will see that handling
-error messages is necessary for your code to run well. Below you’ll find
-a list of the most common status codes and what they mean.</p>
+error messages is necessary for your code to run without interruptions.
+Below you will find a list of the most common status codes and what they
+mean.</p>
 <table class="table"><colgroup><col width="4%"><col width="21%"><col width="74%"></colgroup><thead><tr class="header"><th>Code</th>
 <th>Name</th>
 <th>Meaning</th>
@@ -498,9 +503,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/api-introduction.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/api-introduction.html",
-  "dateCreated": "2025-10-03",
-  "dateModified": "2025-09-15",
-  "datePublished": "2025-10-07"
+  "dateCreated": "2025-10-09",
+  "dateModified": "2025-10-09",
+  "datePublished": "2025-10-09"
 }
 
   </script><script>

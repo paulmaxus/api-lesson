@@ -346,7 +346,7 @@
         
 <section id="aio-api-introduction"><p>Content from <a href="api-introduction.html">API Introduction</a></p>
 <hr>
-<p>Last updated on 2025-09-15 |
+<p>Last updated on 2025-10-09 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -374,7 +374,6 @@
 <ul>
 <li>Understand what an API is and how it works</li>
 <li>Understand what HTTP requests are</li>
-<li>Being able to install HTTP libraries for Python or R</li>
 </ul>
 </div>
 </div>
@@ -384,32 +383,38 @@
 <section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <hr class="half-width">
-<p>HTML websites are the widespread means of sharing information on the
-internet. Unsurprisingly then, scraping websites is a common practice to
-obtain information from the web in an automated way.</p>
-<p>However, it was much easier if a computer program could instead
-communicate with a data provider directly, requesting exactly the
-information that is needed for research purposes. This is what
-Application Programming Interfaces (APIs) accomplish.</p>
-<p>Sadly, many organizations have restricted access to their public APIs
-drastically over the years. However, the open-source community remains
-strong and there are plenty good examples of public open APIs such as
-the scholarly database <a href="https://openalex.org/" class="external-link">OpenAlex</a>.</p>
-<p>Their API can be reached at <a href="https://api.openalex.org/" class="external-link uri">https://api.openalex.org/</a></p>
-<p>Once you open this link in your browser, you won’t see much. That’s
-because we haven’t actually specified any data we would like to
-retrieve. Luckily, on that page, you’ll find a link to the API
-documentation, a very crucial source of information when communiting
-with an API.</p>
-<p>Reading through it, you will find suitable endpoints, such as
-/works:</p>
-<p><code>https://api.openalex.org/works</code></p>
-<p>You can simply paste this link in a browser to see what it contains.
-Alternatively, on the command line you can use <code>curl</code>. In the
-<a href="api-get-data.html">next episode</a>, we will also see how we
-can use Python and R to obtain data from the API.</p>
+<p>HTML websites are a widespread means of sharing information on the
+internet. It is unsurprising then that scraping websites is a common
+practice (in research) to obtain information from the web in an
+automated way.</p>
+<p>However, scraping websites has many downsides; it would be much
+easier if a computer program could instead communicate with a data
+provider directly, requesting exactly the information that is needed for
+the research purpose. This is what Application Programming Interfaces
+(APIs) accomplish.</p>
+<p>Nowadays, many organizations have restricted access to their public
+APIs drastically. The open-source community remains strong, however, and
+there are plenty good examples of public open APIs such as the scholarly
+database <a href="https://openalex.org/" class="external-link">OpenAlex</a>.</p>
+<p>Their API can be reached at:</p>
+<p><a href="https://api.openalex.org/" class="external-link uri">https://api.openalex.org/</a></p>
+</section><section><h2 class="section-heading" id="exploring-an-api">Exploring an API<a class="anchor" aria-label="anchor" href="#exploring-an-api"></a>
+</h2>
+<hr class="half-width">
+<p>When you open this link in your browser, you won’t see much at first.
+That’s because we haven’t actually specified the data we would like to
+retrieve. Luckily, on that page, you will find a link to the <a href="https://docs.openalex.org/how-to-use-the-api/api-overview" class="external-link">API
+documentation</a>, a very crucial source of information when
+communicating with an API.</p>
+<p>Reading through the documentation, you will find many so called
+<strong>endpoints</strong>, URLs that represent resources such as
+publications:</p>
+<p><a href="https://api.openalex.org/works" class="external-link uri">https://api.openalex.org/works</a></p>
+<p>You can copy-paste this link to a browser. Alternatively, on the
+command line you can use <code>curl</code>. In the <a href="api-get-data.html">next chapter</a>, we will also see how we can
+use Python and R to obtain data from the API.</p>
 <p>Here is a subset of the data displayed when opening the
-<code>works</code> url in a browser. OpenAlex returns data as JSON, a
+<code>works</code> URL in a browser. OpenAlex returns data as JSON, a
 common data format for these types of APIs. We won’t cover the specifics
 of the format here, but a quick web search can give you some <a href="https://www.w3schools.com/whatis/whatis_json.asp" class="external-link">answers</a>.</p>
 <div class="codewrapper sourceCode" id="cb1">
@@ -424,15 +429,15 @@ of the format here, but a quick web search can give you some <a href="https://ww
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="dt">"publication_date"</span><span class="fu">:</span><span class="st">"1951-11-01"</span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
 </div>
-<p>When looking at the meta.count field, you’ll notice that the total
-number of publications available via <code>works</code> is 270,765,445
-which is quite large. For the purpose of this workshop, we would like to
-reduce this number by applying filters. This is what most APIs are
-designed to do and it can be very useful if you only wish to obtain the
-data that is really needed.</p>
-<p>Let’s say we would like to only look at publications from 2024
-written by at least one author from the University of Amsterdam. To
-filter on institutions, OpenAlex uses the so called <a href="https://ror.org/" class="external-link">ROR</a> identifier.</p>
+<p>When looking at the <em>meta.count</em> field, you’ll notice that the
+total number of publications available via <code>works</code> is
+270,765,445 which is quite large. For the purpose of this workshop, we
+would like to reduce this number by applying <strong>filters</strong>.
+This is what most APIs are designed to do and it can be very useful if
+you only wish to obtain specific subsets of data.</p>
+<p>Let’s say we are only interested in publications from 2024 written by
+at least one author from the <em>University of Amsterdam</em>. To filter
+by institutions, OpenAlex uses the so called <a href="https://ror.org/" class="external-link">ROR</a> identifier.</p>
 <p>We can modify the URL like this:</p>
 <pre><code>https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024</code></pre>
 <p>Take a look at the API documentation to explore other <a href="https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists" class="external-link">filter
@@ -440,17 +445,18 @@ parameters</a>.</p>
 </section><section><h2 class="section-heading" id="http-status-codes">HTTP status codes<a class="anchor" aria-label="anchor" href="#http-status-codes"></a>
 </h2>
 <hr class="half-width">
-<p>We’ve probably all encountered the famous <code>404</code> error
-message when being redirected to a website that doesn’t exist. APIs
-usually provide more informative error messages.</p>
+<p>We’ve probably all encountered the famous <em>404</em> error message
+when being redirected to a website that does not exist. APIs usually
+provide more informative error messages.</p>
 <p>For example, when inserting a typo into one of our parameters, let’s
-say replacing <code>publication_year</code> with
-<code>pppublication_year</code>, you’ll see a message like this:</p>
+say replacing <em>publication_year</em> with
+<em>pppublication_year</em>, we will get a message like this:</p>
 <p><code>Invalid query parameters error</code></p>
-<p>This error tells you what to look for.</p>
+<p>This error tells us what to look for.</p>
 <p>When making HTTP requests from Python or R, we will see that handling
-error messages is necessary for your code to run well. Below you’ll find
-a list of the most common status codes and what they mean.</p>
+error messages is necessary for your code to run without interruptions.
+Below you will find a list of the most common status codes and what they
+mean.</p>
 <table class="table">
 <colgroup>
 <col width="4%">
@@ -506,7 +512,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  --></section></section><section id="aio-api-get-data"><p>Content from <a href="api-get-data.html">Getting data</a></p>
 <hr>
-<p>Last updated on 2025-10-01 |
+<p>Last updated on 2025-10-09 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-get-data.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -539,6 +545,11 @@ any links that you are not going to use.
 </div>
 </div>
 </div>
+<p>Before looking at the LiteLLM API, we want to make sure that we have
+a dataset to work with. We will be using publications data from
+OpenAlex. You can either load a prepared dataset (see Setup
+instructions) or use the API programmatically and obtain the data
+yourself.</p>
 <div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -568,7 +579,7 @@ language.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
 <p><strong>Read csv data</strong></p>
 <p>There are many ways to read tabular data in Python. We’ll be using
 <code>pandas</code>. If you’re not familiar with the library, you can
@@ -604,7 +615,7 @@ dictionary.</p>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    abstracts_inverted <span class="op">=</span> json.loads(f.read())</span></code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
+<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
 <p><strong>Read csv data</strong></p>
 <p>There are many ways to read tabular data in R, for instance the
 built-in <code>read.csv()</code>, which you might have encountered in
@@ -625,7 +636,7 @@ episode</a>.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Let’s read the dataset now:</p>
+<p>Let’s read the dataset:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -634,7 +645,7 @@ episode</a>.</p>
 </div>
 <p><strong>Read json data</strong></p>
 <p>Inverted abstracts are stored in the JSON format which we already
-encountered in the previous episode. In R, you can read and write JSON
+encountered in the previous chapter. In R, you can read and write JSON
 using the <a href="https://github.com/jeroen/jsonlite" class="external-link">jsonlite</a>
 library.</p>
 <div class="codewrapper sourceCode" id="cb8">
@@ -660,21 +671,28 @@ further. More examples on how to work with JSON data in R, can be found
 </section><section><h2 class="section-heading" id="method-2-get-data-via-api">Method 2: get data via API<a class="anchor" aria-label="anchor" href="#method-2-get-data-via-api"></a>
 </h2>
 <hr class="half-width">
-<p>For this part, we will use HTTP libraries for either Python or R. We
-will use the most commonly used libraries for this workshop, but if
-you’re already familiar with any other, feel free to use those.</p>
-<div class="section level3">
-<h3 id="get-vs--post-requests">GET vs. POST requests<a class="anchor" aria-label="anchor" href="#get-vs--post-requests"></a>
-</h3>
-<p>Before we start making requests, you should be aware of the two most
-relevant <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods" class="external-link">HTTP
-request types</a> for our purposes, GET and POST.</p>
+<div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>For this part, we will need HTTP libraries for either Python or R. We
+will use the most common libraries, but if you are already familiar with
+another, feel free to use those.</p>
+</div>
+</div>
+</div>
+<p><strong>GET vs. POST requests</strong></p>
+<p>The two most relevant <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods" class="external-link">HTTP
+request types</a> for our purposes are GET and POST.</p>
 <p>In simple words, GET requests retrieve data from the server, without
-sending any content, while POST requests send data and retrieve data in
+sending any data, while POST requests send data and retrieve data in
 response.</p>
 <p>When interacting with a language model, we are most likely going to
-send input data (text) to the server, which means we will be making POST
-requests. To retrieve data from OpenAlex, we will be using GET.</p>
+send input data (prompts) to the server, which means we will be making
+POST requests. To retrieve data from OpenAlex, we will be using GET.</p>
 <div class="tabs">
 <nav><div id="nav-tab-2" class="nav nav-tabs" role="tablist">
 <button class="nav-link active" id="nav-tab-2-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-2-Python" type="button" role="tab" aria-controls="nav-tabpanel-2-Python" aria-selected="true">
@@ -689,15 +707,15 @@ requests. To retrieve data from OpenAlex, we will be using GET.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-2" class="tab-content">
-<div id="nav-tabpanel-2-Python" class="tab-pane show active" aria-labelledby="nav-tab-2-Python" role="tabpanel">
+<div id="nav-tabpanel-2-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-2-Python">
 <p>First, we need to install the <code>requests</code> library:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre>
 </div>
-<p>Now, we can import both requests and another built-in library to
-parse json data.</p>
+<p>Now, we can import both <code>requests</code> and the built-in
+library <code>json</code> to parse json data.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -719,7 +737,7 @@ API: <a href="https://github.com/J535D165/pyalex" class="external-link">pyalex</
 library is well-documented and its usage won’t be covered in this
 workshop.</p>
 </div>
-<div id="nav-tabpanel-2-R" class="tab-pane" aria-labelledby="nav-tab-2-R" role="tabpanel">
+<div id="nav-tabpanel-2-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-2-R">
 <p>First, we need to install and load the <a href="https://httr2.r-lib.org/articles/httr2.html" class="external-link">httr2</a>
 package:</p>
 <div class="codewrapper sourceCode" id="cb13">
@@ -754,10 +772,9 @@ is well-documented and its usage won’t be covered in this workshop.</p>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</div>
 </section></section><section id="aio-api-litellm"><p>Content from <a href="api-litellm.html">LiteLLM API</a></p>
 <hr>
-<p>Last updated on 2025-10-01 |
+<p>Last updated on 2025-10-09 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-litellm.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -808,12 +825,12 @@ follow these instructions, too.</p>
 </h2>
 <hr class="half-width">
 <p>The API can be reached at <a href="https://ai-research-proxy.azurewebsites.net/" class="external-link uri">https://ai-research-proxy.azurewebsites.net/</a></p>
-<p>When you open the link in a browser, what you’ll see is the so called
-<a href="https://github.com/swagger-api/swagger-ui" class="external-link">Swagger UI</a>, a
-user interface that lists all of the API’s endpoints, and allows you to
-test those, as long as you have an API key.</p>
-<p>Note that the list is quite long, but that most of those are not
-relevant for this workshop and for most research purposes either.</p>
+<p>When you open the link in a browser, you will see the so called <a href="https://github.com/swagger-api/swagger-ui" class="external-link">Swagger UI</a>, a user
+interface that lists all of the API’s endpoints; it allows you to test
+those, as long as you have an API key.</p>
+<p><em>You will note that the list is quite long; however, most of those
+endpoints are not relevant for this workshop, neither for most research
+purposes.</em></p>
 <div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -821,7 +838,7 @@ relevant for this workshop and for most research purposes either.</p>
 <span class="callout-header">Callout</span>
 <div class="callout-inner">
 <div class="callout-content">
-<p>For this part of the workshop, you’ll need a working API key.</p>
+<p>For this part of the workshop, you will need a working API key.</p>
 </div>
 </div>
 </div>
@@ -873,7 +890,7 @@ to specify the exact model to use.</p>
 </section><section><h2 class="section-heading" id="using-python-and-r">Using Python and R<a class="anchor" aria-label="anchor" href="#using-python-and-r"></a>
 </h2>
 <hr class="half-width">
-<p>In the previous episode, we installed and used the
+<p>In the previous chapter, we installed and used the
 <code>requests</code> (Python) and <code>httr2</code> (R) libraries. We
 will now use those again to make requests to the LiteLLM API.</p>
 <p>Since it is now necessary to authorize ourselves using an API key, we
@@ -1107,7 +1124,7 @@ the LLM, e.g. <code>text-embedding-ada-002</code>.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
 <p>SDG classification:</p>
 <ul>
 <li><a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb" class="external-link">code</a></li>
@@ -1126,7 +1143,7 @@ follow the instructions on their website. For research purposes, it is
 usually desirable to have more control over parameters, for instance by
 using a library such as <code>requests</code>.</p>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
+<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
 <p>SDG classification:</p>
 <ul>
 <li><a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R" class="external-link">code</a></li>
@@ -1188,9 +1205,9 @@ interact with the API (and others).</p>
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/aio.html",
-  "dateCreated": "2025-10-03",
-  "dateModified": "2025-10-07",
-  "datePublished": "2025-10-07"
+  "dateCreated": "2025-10-09",
+  "dateModified": "2025-10-09",
+  "datePublished": "2025-10-09"
 }
 
   </script><script>
