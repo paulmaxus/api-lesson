@@ -31,16 +31,16 @@ these instructions, too.
 
 The API can be reached at https://ai-research-proxy.azurewebsites.net/
 
-When you open the link in a browser, what you'll see is the so called 
+When you open the link in a browser, you will see the so called 
 [Swagger UI](https://github.com/swagger-api/swagger-ui), a user interface
-that lists all of the API's endpoints, and allows you to test those, as long as
+that lists all of the API's endpoints; it allows you to test those, as long as
 you have an API key.
 
-Note that the list is quite long, but that most of those are not relevant
-for this workshop and for most research purposes either.
+*You will note that the list is quite long; however, most of those endpoints are 
+not relevant for this workshop, neither for most research purposes.*
 
 :::::::::::::::::::::::::::::::::::::::: callout
-For this part of the workshop, you'll need a working API key.
+For this part of the workshop, you will need a working API key.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -93,7 +93,7 @@ the exact model to use.
 
 ## Using Python and R
 
-In the previous episode, we installed and used the `requests` (Python) and 
+In the previous chapter, we installed and used the `requests` (Python) and 
 `httr2` (R) libraries. We will now use those again to make requests to the
 LiteLLM API.
 

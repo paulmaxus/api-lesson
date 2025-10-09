@@ -9,7 +9,6 @@ exercises: 2 # exercise time in minutes
 - How can I read the dataset into Python or R
 - How can I access data via an API using Python or R
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
@@ -17,6 +16,11 @@ exercises: 2 # exercise time in minutes
 - Read a dataset from file or fetch data via API
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+Before looking at the LiteLLM API, we want to make sure that we have a dataset 
+to work with. We will be using publications data from OpenAlex. You can either
+load a prepared dataset (see Setup instructions) or use the API programmatically
+and obtain the data yourself.
 
 ::::::::::::::::::::::::::::::::::::::::: callout
 
@@ -85,7 +89,7 @@ Then load it:
 library(tidyverse)
 ```
 
-Let's read the dataset now:
+Let's read the dataset:
 
 ```r
 data <- read_csv("publications2024.csv")
@@ -94,7 +98,7 @@ data <- read_csv("publications2024.csv")
 **Read json data**
 
 Inverted abstracts are stored in the JSON format which we already encountered
-in the previous episode. In R, you can read and write JSON using the 
+in the previous chapter. In R, you can read and write JSON using the 
 [jsonlite](https://github.com/jeroen/jsonlite) library.
 
 ```r
@@ -117,22 +121,24 @@ More examples on how to work with JSON data in R, can be found
 
 ## Method 2: get data via API
 
-For this part, we will use HTTP libraries for either Python or R.
-We will use the most commonly used libraries for this workshop, but if you're
-already familiar with any other, feel free to use those.
+::::::::::::::::::::::::::::::::::::::::: callout
+
+For this part, we will need HTTP libraries for either Python or R.
+We will use the most common libraries, but if you are already familiar with another, feel free to use those.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-### GET vs. POST requests
+**GET vs. POST requests**
 
-Before we start making requests, you should be aware of the two most relevant
-[HTTP request types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods) 
-for our purposes, GET and POST.
+The two most relevant [HTTP request types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods) 
+for our purposes are GET and POST.
 
 In simple words, GET requests retrieve data from the server, without sending
-any content, while POST requests send data and retrieve data in response.
+any data, while POST requests send data and retrieve data in response.
 
 When interacting with a language model, we are most likely going to send 
-input data (text) to the server, which means we will be making POST requests. 
+input data (prompts) to the server, which means we will be making POST requests. 
 To retrieve data from OpenAlex, we will be using GET.
 
 
@@ -146,7 +152,7 @@ First, we need to install the `requests` library:
 pip install requests
 ```
 
-Now, we can import both requests and another built-in library to parse json
+Now, we can import both `requests` and the built-in library `json` to parse json
 data.
 
 ```python
