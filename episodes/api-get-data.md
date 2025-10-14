@@ -1,7 +1,7 @@
 ---
 title: "Getting data"
-teaching: 10 # teaching time in minutes
-exercises: 2 # exercise time in minutes
+teaching: 5 # teaching time in minutes
+exercises: 15 # exercise time in minutes
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
