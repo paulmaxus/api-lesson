@@ -6,8 +6,8 @@ exercises: 15 # exercise time in minutes
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How can I read the dataset into Python or R
-- How can I access data via an API using Python or R
+- How can I read the dataset into Python or R?
+- How can I access data via an API using Python or R?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -19,12 +19,12 @@ exercises: 15 # exercise time in minutes
 
 Before looking at the LiteLLM API, we want to make sure that we have a dataset 
 to work with. We will be using publications data from OpenAlex. You can either
-load a prepared dataset (see Setup instructions) or use the API programmatically
-and obtain the data yourself.
+load a prepared dataset (see [Data Sets](https://paulmaxus.github.io/api-lesson/index.html#data-sets)) 
+or use the API programmatically and obtain the data yourself.
 
 ::::::::::::::::::::::::::::::::::::::::: callout
 
-You do this part on your own. Follow the instructions for your language.
+You do this part on your own. Follow the instructions for your preferrd programming language.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
