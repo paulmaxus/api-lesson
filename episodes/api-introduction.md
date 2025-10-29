@@ -92,6 +92,20 @@ publications that satisfy all of the parameters. It is also possible to filter o
 publications that satisfy one or the other. Take a look at the API documentation to explore other 
 [filter parameters and configurations](https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists).
 
+## GET and POST requests
+
+The two most relevant [HTTP request types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods) 
+for our purposes are GET and POST.
+
+GET requests ask the server to send us data in response, such
+as a subset of publications from OpenAlex, but we are not sending any data ourselves.
+We are only providing parameters that indicate which data we are interested in.
+
+POST requests on the other hand send data and ask for data in response. For example, 
+when interacting with a language model service, we are most likely going to send 
+our prompts (input data) to the server and we will receive a model response in return.
+
+
 ## HTTP status codes
 
 We've probably all encountered the famous *404* error message when being redirected
