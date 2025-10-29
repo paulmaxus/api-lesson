@@ -104,6 +104,25 @@ In essence, we are specifying that we are going to send JSON data and that we
 would like to receive JSON data as well. We are also sending the API key with 
 each request so that the server is able to authorize us.
 
+Our first request will be a GET request to `/models`, replicating what we did 
+using Swagger. Our second request will be a POST request to the `chat/completions`
+endpoint. We will be sending a prompt, which can be anything from "Hello" to
+"List one glacier for each country in the Alps".
+
+The data we send needs to contain the model id and the prompt, we also need to 
+specify that this is a user prompt (as opposed to a system prompt). In Python, 
+you can provide the data as a dictionary, in R as a list. Before being send,
+the data will then be encoded as JSON, e.g.:
+
+```json
+{
+    "model": "gpt-4o-mini",
+    "messages": [
+        {"role": "user", "content": "Hello"}
+    ]
+}
+```
+
 ::::::::::::::::::::::::::::::::::::: group-tab
 
 ### Python
