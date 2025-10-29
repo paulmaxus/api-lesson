@@ -218,6 +218,7 @@
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
 <li><a href="#exploring-an-api">Exploring an API</a></li>
+<li><a href="#get-and-post-requests">GET and POST requests</a></li>
 <li><a href="#http-status-codes">HTTP status codes</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
@@ -414,6 +415,17 @@ publications that satisfy all of the parameters. It is also possible to
 filter on publications that satisfy one or the other. Take a look at the
 API documentation to explore other <a href="https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists" class="external-link">filter
 parameters and configurations</a>.</p>
+</section><section><h2 class="section-heading" id="get-and-post-requests">GET and POST requests<a class="anchor" aria-label="anchor" href="#get-and-post-requests"></a></h2>
+<hr class="half-width"><p>The two most relevant <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods" class="external-link">HTTP
+request types</a> for our purposes are GET and POST.</p>
+<p>GET requests ask the server to send us data in response, such as a
+subset of publications from OpenAlex, but we are not sending any data
+ourselves. We are only providing parameters that indicate which data we
+are interested in.</p>
+<p>POST requests on the other hand send data and ask for data in
+response. For example, when interacting with a language model service,
+we are most likely going to send our prompts (input data) to the server
+and we will receive a model response in return.</p>
 </section><section><h2 class="section-heading" id="http-status-codes">HTTP status codes<a class="anchor" aria-label="anchor" href="#http-status-codes"></a></h2>
 <hr class="half-width"><p>We’ve probably all encountered the famous <em>404</em> error message
 when being redirected to a website that does not exist. APIs usually
