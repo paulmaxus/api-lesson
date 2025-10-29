@@ -39,8 +39,9 @@ https://api.openalex.org/
 ## Exploring an API
 
 When you open this link in your browser, you won't see much at first. That's because
-we haven't actually specified the data we would like to retrieve. Luckily, on that
-page, you will find a link to the [API documentation](https://docs.openalex.org/how-to-use-the-api/api-overview), 
+we haven't actually specified the data we would like to retrieve. In order to understand
+how an API works, it is always good to have a look at the 
+[API documentation](https://docs.openalex.org/how-to-use-the-api/api-overview), 
 a very crucial source of information when communicating with an API.
 
 Reading through the documentation, you will find many so called **endpoints**,
@@ -68,7 +69,7 @@ you some [answers](https://www.w3schools.com/whatis/whatis_json.asp).
 ```
 
 When looking at the *meta.count* field, you'll notice that the total number of publications
-available via `works` is 270,765,445 which is quite large. For the purpose of 
+available via `works` is in the hundreds of millions - that's a lot of data. For the purpose of 
 this workshop, we would like to reduce this number by applying **filters**. This
 is what most APIs are designed to do and it can be very useful if you only wish
 to obtain specific subsets of data.
@@ -83,8 +84,13 @@ We can modify the URL like this:
 https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024
 ```
 
-Take a look at the API documentation to explore other 
-[filter parameters](https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists).
+URL parameters are indicated with a `?`, in this case for example `filter` or `select`.
+We only want to filter for now so we can declare
+`filter=` followed by a list of attributes and values, separated by comma. Note 
+that the comma indicates an *intersection* which means that we want to filter on
+publications that satisfy all of the parameters. It is also possible to filter on
+publications that satisfy one or the other. Take a look at the API documentation to explore other 
+[filter parameters and configurations](https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists).
 
 ## HTTP status codes
 

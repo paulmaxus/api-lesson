@@ -134,12 +134,13 @@ We will use the most common libraries, but if you are already familiar with anot
 The two most relevant [HTTP request types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods) 
 for our purposes are GET and POST.
 
-In simple words, GET requests retrieve data from the server, without sending
-any data, while POST requests send data and retrieve data in response.
+GET requests ask the server to send us data in response, such
+as a subset of publications from OpenAlex, but we are not sending any data ourselves.
+We are only providing parameters that indicate which data we are interested in.
 
-When interacting with a language model, we are most likely going to send 
-input data (prompts) to the server, which means we will be making POST requests. 
-To retrieve data from OpenAlex, we will be using GET.
+POST requests on the other hand send data and ask for data in response. For example, 
+when interacting with a language model service, we are most likely going to send 
+our prompts (input data) to the server and we will receive a model response in return.
 
 
 ::::::::::::::::::::::::::::::::::::: group-tab

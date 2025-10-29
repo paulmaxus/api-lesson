@@ -36,7 +36,7 @@ When you open the link in a browser, you will see the so called
 that lists all of the API's endpoints; it allows you to test those, as long as
 you have an API key.
 
-*You will note that the list is quite long; however, most of those endpoints are 
+*You will note that the list is quite long; however, most of these endpoints are 
 not relevant for this workshop, neither for most research purposes.*
 
 :::::::::::::::::::::::::::::::::::::::: callout
@@ -52,8 +52,8 @@ first (top right button) by inserting your API key.
 
 Let's have a look at a simple GET request using `/models`:
 
-We don't need to pass any data, simply press `Execute`. The status code of
-our request should be `200` and the response body should contain a list of 
+We don't need to pass any data, simply press `Try it out` and then the button `Execute`.
+The status code of our request should be `200` and the response body should contain a list of 
 available models like this:
 
 ```json
@@ -87,7 +87,7 @@ available models like this:
 }
 ```
 
-This information is handy once we start sending input text as we need to specify
+This information is handy once we start sending prompts as we need to specify
 the exact model to use.
 
 
@@ -142,7 +142,11 @@ for model in data.get("data"):
 
 We can now use one of these models to process our text input / prompt:
 
+(Note that we are using the chat/completions endpoint here)
+
 ```python
+url = "https://ai-research-proxy.azurewebsites.net/chat/completions"
+
 prompt = ""  # insert a prompt
 data = {
     "model": "gpt-4o-mini",
@@ -153,7 +157,7 @@ data = {
 response = requests.post(url=url, data=json.dumps(data), headers=headers)
 ```
 
-Notice that we are now using `requests.post()` instead of `requests.get()`
+We are now using `requests.post()` instead of `requests.get()`
 since we are sending data to the server.
 
 ### R
@@ -193,6 +197,8 @@ for (model in content$data) {
 
 We can now use one of these models to process our text input / prompt:
 
+(Note that we are using the chat/completions endpoint here)
+
 ```r
 # Insert a prompt
 prompt = ""
@@ -212,7 +218,7 @@ response <- request(url) %>%
   req_perform()
 ```
 
-Notice that we are now using `req_body_json()` in order to send data to the server.
+We are now using `req_body_json()` in order to send data to the server.
 This is a POST request.
 
 Let's check that the status code is 200 and print the answer:
