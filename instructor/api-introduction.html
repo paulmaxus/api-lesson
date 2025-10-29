@@ -310,7 +310,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>API Introduction</h1>
-        <p>Last updated on 2025-10-14 |
+        <p>Last updated on 2025-10-29 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -366,7 +366,8 @@ database <a href="https://openalex.org/" class="external-link">OpenAlex</a>.</p>
 </section><section><h2 class="section-heading" id="exploring-an-api">Exploring an API<a class="anchor" aria-label="anchor" href="#exploring-an-api"></a></h2>
 <hr class="half-width"><p>When you open this link in your browser, you won’t see much at first.
 That’s because we haven’t actually specified the data we would like to
-retrieve. Luckily, on that page, you will find a link to the <a href="https://docs.openalex.org/how-to-use-the-api/api-overview" class="external-link">API
+retrieve. In order to understand how an API works, it is always good to
+have a look at the <a href="https://docs.openalex.org/how-to-use-the-api/api-overview" class="external-link">API
 documentation</a>, a very crucial source of information when
 communicating with an API.</p>
 <p>Reading through the documentation, you will find many so called
@@ -393,18 +394,26 @@ of the format here, but a quick web search can give you some <a href="https://ww
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
 </div>
 <p>When looking at the <em>meta.count</em> field, you’ll notice that the
-total number of publications available via <code>works</code> is
-270,765,445 which is quite large. For the purpose of this workshop, we
-would like to reduce this number by applying <strong>filters</strong>.
-This is what most APIs are designed to do and it can be very useful if
-you only wish to obtain specific subsets of data.</p>
+total number of publications available via <code>works</code> is in the
+hundreds of millions - that’s a lot of data. For the purpose of this
+workshop, we would like to reduce this number by applying
+<strong>filters</strong>. This is what most APIs are designed to do and
+it can be very useful if you only wish to obtain specific subsets of
+data.</p>
 <p>Let’s say we are only interested in publications from 2024 written by
 at least one author from the <em>University of Amsterdam</em>. To filter
 by institutions, OpenAlex uses the so called <a href="https://ror.org/" class="external-link">ROR</a> identifier.</p>
 <p>We can modify the URL like this:</p>
 <pre><code>https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024</code></pre>
-<p>Take a look at the API documentation to explore other <a href="https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists" class="external-link">filter
-parameters</a>.</p>
+<p>URL parameters are indicated with a <code>?</code>, in this case for
+example <code>filter</code> or <code>select</code>. We only want to
+filter for now so we can declare <code>filter=</code> followed by a list
+of attributes and values, separated by comma. Note that the comma
+indicates an <em>intersection</em> which means that we want to filter on
+publications that satisfy all of the parameters. It is also possible to
+filter on publications that satisfy one or the other. Take a look at the
+API documentation to explore other <a href="https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists" class="external-link">filter
+parameters and configurations</a>.</p>
 </section><section><h2 class="section-heading" id="http-status-codes">HTTP status codes<a class="anchor" aria-label="anchor" href="#http-status-codes"></a></h2>
 <hr class="half-width"><p>We’ve probably all encountered the famous <em>404</em> error message
 when being redirected to a website that does not exist. APIs usually
@@ -503,9 +512,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/api-introduction.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/api-introduction.html",
-  "dateCreated": "2025-10-14",
-  "dateModified": "2025-10-14",
-  "datePublished": "2025-10-28"
+  "dateCreated": "2025-10-29",
+  "dateModified": "2025-10-29",
+  "datePublished": "2025-10-29"
 }
 
   </script><script>

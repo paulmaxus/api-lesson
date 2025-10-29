@@ -344,7 +344,7 @@
         
 <section id="aio-api-introduction"><p>Content from <a href="api-introduction.html">API Introduction</a></p>
 <hr>
-<p>Last updated on 2025-10-14 |
+<p>Last updated on 2025-10-29 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -400,7 +400,8 @@ database <a href="https://openalex.org/" class="external-link">OpenAlex</a>.</p>
 <hr class="half-width">
 <p>When you open this link in your browser, you won’t see much at first.
 That’s because we haven’t actually specified the data we would like to
-retrieve. Luckily, on that page, you will find a link to the <a href="https://docs.openalex.org/how-to-use-the-api/api-overview" class="external-link">API
+retrieve. In order to understand how an API works, it is always good to
+have a look at the <a href="https://docs.openalex.org/how-to-use-the-api/api-overview" class="external-link">API
 documentation</a>, a very crucial source of information when
 communicating with an API.</p>
 <p>Reading through the documentation, you will find many so called
@@ -427,18 +428,26 @@ of the format here, but a quick web search can give you some <a href="https://ww
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
 </div>
 <p>When looking at the <em>meta.count</em> field, you’ll notice that the
-total number of publications available via <code>works</code> is
-270,765,445 which is quite large. For the purpose of this workshop, we
-would like to reduce this number by applying <strong>filters</strong>.
-This is what most APIs are designed to do and it can be very useful if
-you only wish to obtain specific subsets of data.</p>
+total number of publications available via <code>works</code> is in the
+hundreds of millions - that’s a lot of data. For the purpose of this
+workshop, we would like to reduce this number by applying
+<strong>filters</strong>. This is what most APIs are designed to do and
+it can be very useful if you only wish to obtain specific subsets of
+data.</p>
 <p>Let’s say we are only interested in publications from 2024 written by
 at least one author from the <em>University of Amsterdam</em>. To filter
 by institutions, OpenAlex uses the so called <a href="https://ror.org/" class="external-link">ROR</a> identifier.</p>
 <p>We can modify the URL like this:</p>
 <pre><code>https://api.openalex.org/works?filter=institutions.ror:04dkp9463,publication_year:2024</code></pre>
-<p>Take a look at the API documentation to explore other <a href="https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists" class="external-link">filter
-parameters</a>.</p>
+<p>URL parameters are indicated with a <code>?</code>, in this case for
+example <code>filter</code> or <code>select</code>. We only want to
+filter for now so we can declare <code>filter=</code> followed by a list
+of attributes and values, separated by comma. Note that the comma
+indicates an <em>intersection</em> which means that we want to filter on
+publications that satisfy all of the parameters. It is also possible to
+filter on publications that satisfy one or the other. Take a look at the
+API documentation to explore other <a href="https://docs.openalex.org/how-to-use-the-api/get-lists-of-entities/filter-entity-lists" class="external-link">filter
+parameters and configurations</a>.</p>
 </section><section><h2 class="section-heading" id="http-status-codes">HTTP status codes<a class="anchor" aria-label="anchor" href="#http-status-codes"></a>
 </h2>
 <hr class="half-width">
@@ -509,7 +518,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  --></section></section><section id="aio-api-get-data"><p>Content from <a href="api-get-data.html">Getting data</a></p>
 <hr>
-<p>Last updated on 2025-10-14 |
+<p>Last updated on 2025-10-29 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-get-data.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -575,7 +584,7 @@ language.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
 <p><strong>Read csv data</strong></p>
 <p>There are many ways to read tabular data in Python. We’ll be using
 <code>pandas</code>. If you’re not familiar with the library, you can
@@ -611,7 +620,7 @@ dictionary.</p>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    abstracts_inverted <span class="op">=</span> json.loads(f.read())</span></code></pre>
 </div>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
+<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
 <p><strong>Read csv data</strong></p>
 <p>There are many ways to read tabular data in R, for instance the
 built-in <code>read.csv()</code>, which you might have encountered in
@@ -683,12 +692,14 @@ another, feel free to use those.</p>
 <p><strong>GET vs. POST requests</strong></p>
 <p>The two most relevant <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods" class="external-link">HTTP
 request types</a> for our purposes are GET and POST.</p>
-<p>In simple words, GET requests retrieve data from the server, without
-sending any data, while POST requests send data and retrieve data in
-response.</p>
-<p>When interacting with a language model, we are most likely going to
-send input data (prompts) to the server, which means we will be making
-POST requests. To retrieve data from OpenAlex, we will be using GET.</p>
+<p>GET requests ask the server to send us data in response, such as a
+subset of publications from OpenAlex, but we are not sending any data
+ourselves. We are only providing parameters that indicate which data we
+are interested in.</p>
+<p>POST requests on the other hand send data and ask for data in
+response. For example, when interacting with a language model service,
+we are most likely going to send our prompts (input data) to the server
+and we will receive a model response in return.</p>
 <div class="tabs">
 <nav><div id="nav-tab-2" class="nav nav-tabs" role="tablist">
 <button class="nav-link active" id="nav-tab-2-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-2-Python" type="button" role="tab" aria-controls="nav-tabpanel-2-Python" aria-selected="true">
@@ -703,7 +714,7 @@ POST requests. To retrieve data from OpenAlex, we will be using GET.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-2" class="tab-content">
-<div id="nav-tabpanel-2-Python" class="tab-pane show active" aria-labelledby="nav-tab-2-Python" role="tabpanel">
+<div id="nav-tabpanel-2-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-2-Python">
 <p>First, we need to install the <code>requests</code> library:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -733,7 +744,7 @@ API: <a href="https://github.com/J535D165/pyalex" class="external-link">pyalex</
 library is well-documented and its usage won’t be covered in this
 workshop.</p>
 </div>
-<div id="nav-tabpanel-2-R" class="tab-pane" aria-labelledby="nav-tab-2-R" role="tabpanel">
+<div id="nav-tabpanel-2-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-2-R">
 <p>First, we need to install and load the <a href="https://httr2.r-lib.org/articles/httr2.html" class="external-link">httr2</a>
 package:</p>
 <div class="codewrapper sourceCode" id="cb13">
@@ -770,7 +781,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-api-litellm"><p>Content from <a href="api-litellm.html">LiteLLM API</a></p>
 <hr>
-<p>Last updated on 2025-10-14 |
+<p>Last updated on 2025-10-29 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-litellm.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -823,7 +834,7 @@ follow these instructions, too.</p>
 <p>When you open the link in a browser, you will see the so called <a href="https://github.com/swagger-api/swagger-ui" class="external-link">Swagger UI</a>, a user
 interface that lists all of the API’s endpoints; it allows you to test
 those, as long as you have an API key.</p>
-<p><em>You will note that the list is quite long; however, most of those
+<p><em>You will note that the list is quite long; however, most of these
 endpoints are not relevant for this workshop, neither for most research
 purposes.</em></p>
 <div id="callout2" class="callout">
@@ -845,9 +856,10 @@ UI is an ideal starting point. To be able to execute requests, you need
 to authorize first (top right button) by inserting your API key.</p>
 <p>Let’s have a look at a simple GET request using
 <code>/models</code>:</p>
-<p>We don’t need to pass any data, simply press <code>Execute</code>.
-The status code of our request should be <code>200</code> and the
-response body should contain a list of available models like this:</p>
+<p>We don’t need to pass any data, simply press <code>Try it out</code>
+and then the button <code>Execute</code>. The status code of our request
+should be <code>200</code> and the response body should contain a list
+of available models like this:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">JSON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -880,8 +892,8 @@ response body should contain a list of available models like this:</p>
 <span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>  <span class="ot">]</span></span>
 <span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
 </div>
-<p>This information is handy once we start sending input text as we need
-to specify the exact model to use.</p>
+<p>This information is handy once we start sending prompts as we need to
+specify the exact model to use.</p>
 </section><section><h2 class="section-heading" id="using-python-and-r">Using Python and R<a class="anchor" aria-label="anchor" href="#using-python-and-r"></a>
 </h2>
 <hr class="half-width">
@@ -908,7 +920,7 @@ us.</p>
 </button>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
-<div id="nav-tabpanel-1-Python" class="tab-pane show active" role="tabpanel" aria-labelledby="nav-tab-1-Python">
+<div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
 <p>We first need to import the requests and json module.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -944,22 +956,25 @@ using Python:</p>
 </div>
 <p>We can now use one of these models to process our text input /
 prompt:</p>
+<p>(Note that we are using the chat/completions endpoint here)</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">""</span>  <span class="co"># insert a prompt</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>data <span class="op">=</span> {</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="st">"model"</span>: <span class="st">"gpt-4o-mini"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>        {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    ]</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>}</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>response <span class="op">=</span> requests.post(url<span class="op">=</span>url, data<span class="op">=</span>json.dumps(data), headers<span class="op">=</span>headers)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/chat/completions"</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">""</span>  <span class="co"># insert a prompt</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="st">"model"</span>: <span class="st">"gpt-4o-mini"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>        {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    ]</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>}</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>response <span class="op">=</span> requests.post(url<span class="op">=</span>url, data<span class="op">=</span>json.dumps(data), headers<span class="op">=</span>headers)</span></code></pre>
 </div>
-<p>Notice that we are now using <code>requests.post()</code> instead of
+<p>We are now using <code>requests.post()</code> instead of
 <code>requests.get()</code> since we are sending data to the server.</p>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" role="tabpanel" aria-labelledby="nav-tab-1-R">
+<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -999,6 +1014,7 @@ using R:</p>
 </div>
 <p>We can now use one of these models to process our text input /
 prompt:</p>
+<p>(Note that we are using the chat/completions endpoint here)</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1020,8 +1036,8 @@ prompt:</p>
 <span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">req_perform</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Notice that we are now using <code>req_body_json()</code> in order to
-send data to the server. This is a POST request.</p>
+<p>We are now using <code>req_body_json()</code> in order to send data
+to the server. This is a POST request.</p>
 <p>Let’s check that the status code is 200 and print the answer:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1043,7 +1059,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-examples-exercises"><p>Content from <a href="examples-exercises.html">Examples and exercises</a></p>
 <hr>
-<p>Last updated on 2025-10-14 |
+<p>Last updated on 2025-10-29 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/examples-exercises.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1076,9 +1092,9 @@ any links that you are not going to use.
 </div>
 <p>We’ve covered the basics of what an API is, how to interact with it
 and looked at two API specifications. It is now time to put this
-knowledge into practice. Below you’ll find links to language-specific
-scripts with GenAI use cases. We also provide additional links for
-further reading.</p>
+knowledge into practice. Below you’ll find examples and links to
+language-specific scripts with GenAI use cases. We also provide
+additional links for further exploration.</p>
 <div id="discussion1" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -1086,24 +1102,34 @@ further reading.</p>
 <span class="callout-header">Discussion</span>
 <div class="callout-inner">
 <div class="callout-content">
-<p>In pairs or groups of 3, use the available data to come up with a
-generative AI (research) application - possible outcomes can be tables,
-graphs, summaries, or small pieces of software (advanced). Ideally, you
-can share these outcomes with the other workshop participants at the end
-of the exercise.</p>
+<p>In pairs or groups of 3, use the available data and try to come up
+with a generative AI (research) application - if you feel comfortable
+enough you can start entirely from scratch, otherwise, follow the
+example scripts. Possible outcomes can be tables, graphs, summaries, or
+small pieces of software (advanced).</p>
 </div>
 </div>
 </div>
-<p><strong>Example 1: SDG classification</strong></p>
-<p>We read a subset of publications and abstracts, and use structured
-outputs to retrieve labels for publication titles and abstracts.</p>
-<p><strong>Example 2: RAGs</strong></p>
-<p><a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" class="external-link">Retrieval-augmented
-generation (RAG)</a> can be a powerful tool to generate more reliable
-output. By providing a set of domain-specific documents, the LLM is able
-to query those documents before generating its answer to the user.</p>
-<p>To implement RAG, you will need to use an embeddings model next to
-the LLM, e.g. <code>text-embedding-ada-002</code>.</p>
+<section><h2 class="section-heading" id="example-1-sdg-classification">Example 1: SDG classification<a class="anchor" aria-label="anchor" href="#example-1-sdg-classification"></a>
+</h2>
+<hr class="half-width">
+<p>Our dataset contains both titles and abstracts of publications. A
+common task for a generative AI would be to assign topics to these
+publications, such as <a href="https://sdgs.un.org/goals" class="external-link">Sustainable
+Development Goals</a>.</p>
+<p>Since we have a finite set of labels (17 SDGs in total), we will be
+using <a href="https://platform.openai.com/docs/guides/structured-outputs" class="external-link">structured
+outputs</a> to instruct the model to only return those labels as
+response, as opposed to a lengthy and possibly random reply.</p>
+<p>The steps are therefore as follows:</p>
+<ul>
+<li>read a subset of publications (to save costs and time)</li>
+<li>define system and user prompts</li>
+<li>define schema for structured outputs</li>
+<li>send requests and retrieve labels</li>
+<li>repeat for abstracts; since they are inverted, we need to
+pre-process them first</li>
+</ul>
 <div class="tabs">
 <nav><div id="nav-tab-1" class="nav nav-tabs" role="tablist">
 <button class="nav-link active" id="nav-tab-1-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-1-Python" type="button" role="tab" aria-controls="nav-tabpanel-1-Python" aria-selected="true">
@@ -1119,11 +1145,43 @@ the LLM, e.g. <code>text-embedding-ada-002</code>.</p>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
 <div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
-<p>SDG classification:</p>
-<ul>
-<li><a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb" class="external-link">code</a></li>
-</ul>
-<p>RAG (LlamaIndex):</p>
+<p>You can either develop a solution from scratch or follow <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb" class="external-link">this
+notebook</a></p>
+</div>
+<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
+<p>You can either develop a solution from scratch or reuse <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R" class="external-link">this
+script</a></p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="example-2-rag">Example 2: RAG<a class="anchor" aria-label="anchor" href="#example-2-rag"></a>
+</h2>
+<hr class="half-width">
+<p><em>Note: this is an advanced topic and requires additional reading
+and setup.</em></p>
+<p><a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" class="external-link">Retrieval-augmented
+generation (RAG)</a> can be a powerful tool to generate more reliable
+output. By providing a set of domain-specific documents, the LLM is able
+to query those documents before generating its answer to the user.</p>
+<p>To implement RAG, you will need to use an embeddings model next to
+the LLM, e.g. <code>text-embedding-ada-002</code>.</p>
+<div class="tabs">
+<nav><div id="nav-tab-2" class="nav nav-tabs" role="tablist">
+<button class="nav-link active" id="nav-tab-2-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-2-Python" type="button" role="tab" aria-controls="nav-tabpanel-2-Python" aria-selected="true">
+  <h3 class="tab-header" id="nav-tab-heading-2-Python">
+  Python
+  </h3>
+</button>
+<button class="nav-link" id="nav-tab-2-R" name="R" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-2-R" type="button" role="tab" aria-controls="nav-tabpanel-2-R" aria-selected="false">
+  <h3 class="tab-header" id="nav-tab-heading-2-R">
+  R
+  </h3>
+</button>
+</div>
+</nav><div id="nav-tabContent-2" class="tab-content">
+<div id="nav-tabpanel-2-Python" class="tab-pane show active" aria-labelledby="nav-tab-2-Python" role="tabpanel">
+<p><em>LlamaIndex</em> can be used to implement RAG. Two resources that
+might be useful:</p>
 <ul>
 <li><a href="https://developers.llamaindex.ai/python/framework/module_guides/indexing/vector_store_index/#loading-data-into-the-index" class="external-link">vector
 store</a></li>
@@ -1137,22 +1195,21 @@ follow the instructions on their website. For research purposes, it is
 usually desirable to have more control over parameters, for instance by
 using a library such as <code>requests</code>.</p>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
-<p>SDG classification:</p>
-<ul>
-<li><a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R" class="external-link">code</a></li>
-</ul>
-<p>RAG:</p>
-<ul>
-<li><a href="https://ragnar.tidyverse.org/" class="external-link">ragnar</a></li>
-</ul>
+<div id="nav-tabpanel-2-R" class="tab-pane" aria-labelledby="nav-tab-2-R" role="tabpanel">
+<p><a href="https://ragnar.tidyverse.org/" class="external-link">ragnar</a> is an R library to
+implement RAG.</p>
 <p><strong>More</strong></p>
 <p>Besides the more generic httr2 library, there are AI-specific
 libraries such as <a href="https://ellmer.tidyverse.org/" class="external-link">Ellmer</a> to
 interact with the API (and others).</p>
 </div>
 </div>
-</div></section>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</section></section>
 </div>
     </main>
 </div>
@@ -1199,9 +1256,9 @@ interact with the API (and others).</p>
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/aio.html",
-  "dateCreated": "2025-10-14",
-  "dateModified": "2025-10-28",
-  "datePublished": "2025-10-28"
+  "dateCreated": "2025-10-29",
+  "dateModified": "2025-10-29",
+  "datePublished": "2025-10-29"
 }
 
   </script><script>

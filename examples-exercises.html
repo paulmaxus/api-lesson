@@ -233,12 +233,20 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         4. Examples and exercises
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#example-1-sdg-classification">Example 1: SDG classification</a></li>
+<li><a href="#example-2-rag">Example 2: RAG</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -301,7 +309,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Examples and exercises</h1>
-        <p>Last updated on 2025-10-14 |
+        <p>Last updated on 2025-10-29 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/examples-exercises.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -336,9 +344,9 @@
 </div>
 <p>We’ve covered the basics of what an API is, how to interact with it
 and looked at two API specifications. It is now time to put this
-knowledge into practice. Below you’ll find links to language-specific
-scripts with GenAI use cases. We also provide additional links for
-further reading.</p>
+knowledge into practice. Below you’ll find examples and links to
+language-specific scripts with GenAI use cases. We also provide
+additional links for further exploration.</p>
 <div id="discussion1" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -346,25 +354,31 @@ further reading.</p>
 <span class="callout-header">Discussion</span>
 <div class="callout-inner">
 <div class="callout-content">
-<p>In pairs or groups of 3, use the available data to come up with a
-generative AI (research) application - possible outcomes can be tables,
-graphs, summaries, or small pieces of software (advanced). Ideally, you
-can share these outcomes with the other workshop participants at the end
-of the exercise.</p>
+<p>In pairs or groups of 3, use the available data and try to come up
+with a generative AI (research) application - if you feel comfortable
+enough you can start entirely from scratch, otherwise, follow the
+example scripts. Possible outcomes can be tables, graphs, summaries, or
+small pieces of software (advanced).</p>
 </div>
 </div>
 </div>
-<p><strong>Example 1: SDG classification</strong></p>
-<p>We read a subset of publications and abstracts, and use structured
-outputs to retrieve labels for publication titles and abstracts.</p>
-<p><strong>Example 2: RAGs</strong></p>
-<p><a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" class="external-link">Retrieval-augmented
-generation (RAG)</a> can be a powerful tool to generate more reliable
-output. By providing a set of domain-specific documents, the LLM is able
-to query those documents before generating its answer to the user.</p>
-<p>To implement RAG, you will need to use an embeddings model next to
-the LLM, e.g. <code>text-embedding-ada-002</code>.</p>
-<div class="tabs">
+<section><h2 class="section-heading" id="example-1-sdg-classification">Example 1: SDG classification<a class="anchor" aria-label="anchor" href="#example-1-sdg-classification"></a></h2>
+<hr class="half-width"><p>Our dataset contains both titles and abstracts of publications. A
+common task for a generative AI would be to assign topics to these
+publications, such as <a href="https://sdgs.un.org/goals" class="external-link">Sustainable
+Development Goals</a>.</p>
+<p>Since we have a finite set of labels (17 SDGs in total), we will be
+using <a href="https://platform.openai.com/docs/guides/structured-outputs" class="external-link">structured
+outputs</a> to instruct the model to only return those labels as
+response, as opposed to a lengthy and possibly random reply.</p>
+<p>The steps are therefore as follows:</p>
+<ul><li>read a subset of publications (to save costs and time)</li>
+<li>define system and user prompts</li>
+<li>define schema for structured outputs</li>
+<li>send requests and retrieve labels</li>
+<li>repeat for abstracts; since they are inverted, we need to
+pre-process them first</li>
+</ul><div class="tabs">
 <nav><div id="nav-tab-1" class="nav nav-tabs" role="tablist">
 <button class="nav-link active" id="nav-tab-1-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-1-Python" type="button" role="tab" aria-controls="nav-tabpanel-1-Python" aria-selected="true">
   <h3 class="tab-header" id="nav-tab-heading-1-Python">
@@ -379,9 +393,41 @@ the LLM, e.g. <code>text-embedding-ada-002</code>.</p>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
 <div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
-<p>SDG classification:</p>
-<ul><li><a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb" class="external-link">code</a></li>
-</ul><p>RAG (LlamaIndex):</p>
+<p>You can either develop a solution from scratch or follow <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.ipynb" class="external-link">this
+notebook</a></p>
+</div>
+<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
+<p>You can either develop a solution from scratch or reuse <a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R" class="external-link">this
+script</a></p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="example-2-rag">Example 2: RAG<a class="anchor" aria-label="anchor" href="#example-2-rag"></a></h2>
+<hr class="half-width"><p><em>Note: this is an advanced topic and requires additional reading
+and setup.</em></p>
+<p><a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation" class="external-link">Retrieval-augmented
+generation (RAG)</a> can be a powerful tool to generate more reliable
+output. By providing a set of domain-specific documents, the LLM is able
+to query those documents before generating its answer to the user.</p>
+<p>To implement RAG, you will need to use an embeddings model next to
+the LLM, e.g. <code>text-embedding-ada-002</code>.</p>
+<div class="tabs">
+<nav><div id="nav-tab-2" class="nav nav-tabs" role="tablist">
+<button class="nav-link active" id="nav-tab-2-Python" name="Python" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-2-Python" type="button" role="tab" aria-controls="nav-tabpanel-2-Python" aria-selected="true">
+  <h3 class="tab-header" id="nav-tab-heading-2-Python">
+  Python
+  </h3>
+</button>
+<button class="nav-link" id="nav-tab-2-R" name="R" data-bs-toggle="tab" data-bs-target="#nav-tabpanel-2-R" type="button" role="tab" aria-controls="nav-tabpanel-2-R" aria-selected="false">
+  <h3 class="tab-header" id="nav-tab-heading-2-R">
+  R
+  </h3>
+</button>
+</div>
+</nav><div id="nav-tabContent-2" class="tab-content">
+<div id="nav-tabpanel-2-Python" class="tab-pane show active" aria-labelledby="nav-tab-2-Python" role="tabpanel">
+<p><em>LlamaIndex</em> can be used to implement RAG. Two resources that
+might be useful:</p>
 <ul><li><a href="https://developers.llamaindex.ai/python/framework/module_guides/indexing/vector_store_index/#loading-data-into-the-index" class="external-link">vector
 store</a></li>
 <li><a href="https://developers.llamaindex.ai/python/framework/module_guides/deploying/chat_engines/usage_pattern#available-chat-modes" class="external-link">chat
@@ -393,12 +439,10 @@ follow the instructions on their website. For research purposes, it is
 usually desirable to have more control over parameters, for instance by
 using a library such as <code>requests</code>.</p>
 </div>
-<div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
-<p>SDG classification:</p>
-<ul><li><a href="https://github.com/paulmaxus/litellm-workflow/blob/main/structured.R" class="external-link">code</a></li>
-</ul><p>RAG:</p>
-<ul><li><a href="https://ragnar.tidyverse.org/" class="external-link">ragnar</a></li>
-</ul><p><strong>More</strong></p>
+<div id="nav-tabpanel-2-R" class="tab-pane" aria-labelledby="nav-tab-2-R" role="tabpanel">
+<p><a href="https://ragnar.tidyverse.org/" class="external-link">ragnar</a> is an R library to
+implement RAG.</p>
+<p><strong>More</strong></p>
 <p>Besides the more generic httr2 library, there are AI-specific
 libraries such as <a href="https://ellmer.tidyverse.org/" class="external-link">Ellmer</a> to
 interact with the API (and others).</p>
@@ -409,10 +453,7 @@ interact with the API (and others).</p>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="api-litellm.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -469,9 +510,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/examples-exercises.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/examples-exercises.html",
-  "dateCreated": "2025-10-14",
-  "dateModified": "2025-10-14",
-  "datePublished": "2025-10-28"
+  "dateCreated": "2025-10-29",
+  "dateModified": "2025-10-29",
+  "datePublished": "2025-10-29"
 }
 
   </script><script>
