@@ -187,7 +187,7 @@ library(httr2)
 
 Let's now set the headers:
 
-```python
+```r
 api_key <- ""  
 # make sure to never expose this key to the public
 
