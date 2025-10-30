@@ -182,7 +182,7 @@ req <- request("https://api.openalex.org/works?filter=institutions.ror:04dkp9463
 resp <- req %>% req_perform()
 
 # Retrieve data from the response
-data <- resp %>% resp_body_json() %>% str()
+data <- resp %>% resp_body_json()
 ```
 
 There is also an R library that simplifies using the OpenAlex API:
