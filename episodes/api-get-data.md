@@ -24,7 +24,7 @@ or use the API programmatically and obtain the data yourself.
 
 ::::::::::::::::::::::::::::::::::::::::: callout
 
-You do this part on your own. Follow the instructions for your preferrd programming language.
+You do this part on your own. Follow the instructions for your preferred programming language.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
