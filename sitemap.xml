@@ -25,6 +25,9 @@
     <loc>https://carpentries.github.io/workbench-template-md/api-litellm.html</loc>
   </url>
   <url>
+    <loc>https://carpentries.github.io/workbench-template-md/citation.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries.github.io/workbench-template-md/examples-exercises.html</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>https://carpentries.github.io/workbench-template-md/instructor/api-litellm.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries.github.io/workbench-template-md/instructor/citation.html</loc>
   </url>
   <url>
     <loc>https://carpentries.github.io/workbench-template-md/instructor/examples-exercises.html</loc>
