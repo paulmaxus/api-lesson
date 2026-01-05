@@ -19,7 +19,7 @@ exercises: 15 # exercise time in minutes
 
 Before looking at the LiteLLM API, we want to make sure that we have a dataset 
 to work with. We will be using publications data from OpenAlex. You can either
-load a prepared dataset (see [Data Sets](https://paulmaxus.github.io/api-lesson/index.html#data-sets)) 
+load a prepared dataset (see [Data Sets](../index.md#data-sets)) 
 or use the API programmatically and obtain the data yourself.
 
 ::::::::::::::::::::::::::::::::::::::::: callout
