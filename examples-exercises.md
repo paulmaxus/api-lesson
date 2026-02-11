@@ -84,20 +84,8 @@ To implement RAG, you will need to use an embeddings model next to the LLM, e.g.
 - [vector store](https://developers.llamaindex.ai/python/framework/module_guides/indexing/vector_store_index/#loading-data-into-the-index)
 - [chat engine](https://developers.llamaindex.ai/python/framework/module_guides/deploying/chat_engines/usage_pattern#available-chat-modes)
 
-**More**
-
-[PandasAI](https://docs.pandas-ai.com/v3/getting-started) can be used to quickly
-run inference on your pandas dataframes. You can follow the instructions on their
-website. For research purposes, it is usually desirable to have more control over parameters,
-for instance by using a library such as `requests`.
-
 ### R
 
 [ragnar](https://ragnar.tidyverse.org/) is an R library to implement RAG.
-
-**More**
-
-Besides the more generic httr2 library, there are AI-specific libraries such as
-[Ellmer](https://ellmer.tidyverse.org/) to interact with the API (and others).
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

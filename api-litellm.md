@@ -95,7 +95,11 @@ the exact model to use.
 
 In the previous chapter, we installed and used the `requests` (Python) and 
 `httr2` (R) libraries. We will now use those again to make requests to the
-LiteLLM API.
+LiteLLM API. You might have heard of other more specialized libraries such as 
+[Ellmer](https://ellmer.tidyverse.org/) for R or or [OpenAI](https://github.com/openai/openai-python)
+for Python. We are using more generic HTTP libraries here as those work with
+other APIs as well.
+
 
 Since it is now necessary to authorize ourselves using an API key, we need to 
 send additional information to the server, so called 
@@ -127,7 +131,33 @@ the data will then be encoded as JSON, e.g.:
 
 ### Python
 
-We first need to import the requests and json module.
+API keys should never be hard-coded in your script. For Python, you can either
+create a .env file and load your key using the [dotenv](https://github.com/theskumar/python-dotenv)
+library, or import it from a config.py file. Make sure that both files are never
+committed to any repository or shared with anyone.
+
+Your .env file should contain an API key variable like this:
+
+`API_KEY=INSERT_YOUR_API_KEY_HERE`
+
+Your config.py should contain the key as Python string:
+
+`api_key = "INSERT_YOUR_API_KEY_HERE"`
+
+```python
+# Load from config.py
+from config import api_key
+
+# Load from .env
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+api_key = os.getenv('API_KEY')
+
+```
+
+Import the requests and json module.
 
 ```python
 import requests
@@ -137,8 +167,6 @@ import json
 Let's now set the headers:
 
 ```python
-api_key = ""  # make sure to never expose this key to the public
-
 headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
@@ -181,6 +209,14 @@ since we are sending data to the server.
 
 ### R
 
+API keys should never be hard-coded in your script. For R, you can use environment variables. 
+You can either set those manually with Sys.setenv() or by creating a .Renviron file. 
+Make sure to restart R whenever you make changes to .Renviron
+
+Add your API key to .Renviron as a variable like this:
+
+`API_KEY=INSERT_YOUR_API_KEY_HERE`
+
 ```r
 library(httr2)
 ```
@@ -188,8 +224,7 @@ library(httr2)
 Let's now set the headers:
 
 ```r
-api_key <- ""  
-# make sure to never expose this key to the public
+api_key <- Sys.getenv("OPENAI_API_KEY")
 
 headers <- list(
   "Content-Type" = "application/json",
