@@ -311,7 +311,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>LiteLLM API</h1>
-        <p>Last updated on 2025-10-30 |
+        <p>Last updated on 2026-02-11 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/api-litellm.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -425,7 +425,10 @@ specify the exact model to use.</p>
 </section><section><h2 class="section-heading" id="using-python-and-r">Using Python and R<a class="anchor" aria-label="anchor" href="#using-python-and-r"></a></h2>
 <hr class="half-width"><p>In the previous chapter, we installed and used the
 <code>requests</code> (Python) and <code>httr2</code> (R) libraries. We
-will now use those again to make requests to the LiteLLM API.</p>
+will now use those again to make requests to the LiteLLM API. You might
+have heard of other more specialized libraries such as <a href="https://ellmer.tidyverse.org/" class="external-link">Ellmer</a> for R or or <a href="https://github.com/openai/openai-python" class="external-link">OpenAI</a> for Python. We
+are using more generic HTTP libraries here as those work with other APIs
+as well.</p>
 <p>Since it is now necessary to authorize ourselves using an API key, we
 need to send additional information to the server, so called <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers" class="external-link">headers</a>.
 In essence, we are specifying that we are going to send JSON data and
@@ -467,73 +470,97 @@ e.g.:</p>
 </div>
 </nav><div id="nav-tabContent-1" class="tab-content">
 <div id="nav-tabpanel-1-Python" class="tab-pane show active" aria-labelledby="nav-tab-1-Python" role="tabpanel">
-<p>We first need to import the requests and json module.</p>
+<p>API keys should never be hard-coded in your script. For Python, you
+can either create a .env file and load your key using the <a href="https://github.com/theskumar/python-dotenv" class="external-link">dotenv</a> library, or
+import it from a config.py file. Make sure that both files are never
+committed to any repository or shared with anyone.</p>
+<p>Your .env file should contain an API key variable like this:</p>
+<p><code>API_KEY=INSERT_YOUR_API_KEY_HERE</code></p>
+<p>Your config.py should contain the key as Python string:</p>
+<p><code>api_key = "INSERT_YOUR_API_KEY_HERE"</code></p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="im">import</span> json</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Load from config.py</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="im">from</span> config <span class="im">import</span> api_key</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Load from .env</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>load_dotenv()</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>api_key <span class="op">=</span> os.getenv(<span class="st">'API_KEY'</span>)</span></code></pre>
 </div>
-<p>Let’s now set the headers:</p>
+<p>Import the requests and json module.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>api_key <span class="op">=</span> <span class="st">""</span>  <span class="co"># make sure to never expose this key to the public</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="st">"Accept"</span>: <span class="st">"application/json"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="st">"Authorization"</span>: <span class="ss">f"Bearer </span><span class="sc">{</span>api_key<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>}</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="im">import</span> json</span></code></pre>
 </div>
-<p>We can now repeat the request to <code>/models</code>, this time
-using Python:</p>
+<p>Let’s now set the headers:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/models"</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">=</span>url, headers<span class="op">=</span>headers)</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>data <span class="op">=</span> response.json()</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="cf">for</span> model <span class="kw">in</span> data.get(<span class="st">"data"</span>):</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="bu">print</span>(model.get(<span class="st">"id"</span>))</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="st">"Accept"</span>: <span class="st">"application/json"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="st">"Authorization"</span>: <span class="ss">f"Bearer </span><span class="sc">{</span>api_key<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>}</span></code></pre>
+</div>
+<p>We can now repeat the request to <code>/models</code>, this time
+using Python:</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/models"</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>response <span class="op">=</span> requests.get(url<span class="op">=</span>url, headers<span class="op">=</span>headers)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>data <span class="op">=</span> response.json()</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="cf">for</span> model <span class="kw">in</span> data.get(<span class="st">"data"</span>):</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="bu">print</span>(model.get(<span class="st">"id"</span>))</span></code></pre>
 </div>
 <p>We can now use one of these models to process our text input /
 prompt:</p>
 <p>(Note that we are using the chat/completions endpoint here)</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/chat/completions"</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">""</span>  <span class="co"># insert a prompt</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>data <span class="op">=</span> {</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="st">"model"</span>: <span class="st">"gpt-4o-mini"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>        {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    ]</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>}</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>response <span class="op">=</span> requests.post(url<span class="op">=</span>url, data<span class="op">=</span>json.dumps(data), headers<span class="op">=</span>headers)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://ai-research-proxy.azurewebsites.net/chat/completions"</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">""</span>  <span class="co"># insert a prompt</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    <span class="st">"model"</span>: <span class="st">"gpt-4o-mini"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>        {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: prompt}</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    ]</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>}</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>response <span class="op">=</span> requests.post(url<span class="op">=</span>url, data<span class="op">=</span>json.dumps(data), headers<span class="op">=</span>headers)</span></code></pre>
 </div>
 <p>We are now using <code>requests.post()</code> instead of
 <code>requests.get()</code> since we are sending data to the server.</p>
 </div>
 <div id="nav-tabpanel-1-R" class="tab-pane" aria-labelledby="nav-tab-1-R" role="tabpanel">
-<div class="codewrapper sourceCode" id="cb7">
+<p>API keys should never be hard-coded in your script. For R, you can
+use environment variables. You can either set those manually with
+Sys.setenv() or by creating a .Renviron file. Make sure to restart R
+whenever you make changes to .Renviron</p>
+<p>Add your API key to .Renviron as a variable like this:</p>
+<p><code>API_KEY=INSERT_YOUR_API_KEY_HERE</code></p>
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">httr2</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Let’s now set the headers:</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">api_key</span> <span class="op">&lt;-</span> <span class="st">""</span>  </span>
-<span><span class="co"># make sure to never expose this key to the public</span></span>
+<code class="sourceCode R"><span><span class="va">api_key</span> <span class="op">&lt;-</span> <span class="fu">Sys.getenv</span><span class="op">(</span><span class="st">"OPENAI_API_KEY"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">headers</span> <span class="op">&lt;-</span> <span class="fu">list</span><span class="op">(</span></span>
 <span>  <span class="st">"Content-Type"</span> <span class="op">=</span> <span class="st">"application/json"</span>,</span>
@@ -543,7 +570,7 @@ prompt:</p>
 </div>
 <p>We can now repeat the request to <code>/models</code>, this time
 using R:</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -562,7 +589,7 @@ using R:</p>
 <p>We can now use one of these models to process our text input /
 prompt:</p>
 <p>(Note that we are using the chat/completions endpoint here)</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -586,7 +613,7 @@ prompt:</p>
 <p>We are now using <code>req_body_json()</code> in order to send data
 to the server. This is a POST request.</p>
 <p>Let’s check that the status code is 200 and print the answer:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -663,9 +690,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/api-litellm.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/api-litellm.html",
-  "dateCreated": "2026-01-05",
-  "dateModified": "2025-10-30",
-  "datePublished": "2026-02-10"
+  "dateCreated": "2026-02-11",
+  "dateModified": "2026-02-11",
+  "datePublished": "2026-02-11"
 }
 
   </script><script>
